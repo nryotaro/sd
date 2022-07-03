@@ -7,5 +7,10 @@
 *.pdf
 *.synctex.gz
 *.toc
+# bib
+*.bbl
+*.bcf
+*.blg
+*.run.xml
 # Emacs
 *~
