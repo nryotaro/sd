@@ -13,27 +13,21 @@ pdflang=ja-JP
 \date{\today}
 \maketitle
 \tableofcontents
-\section{銀}
-\subsection{銀色}
+\section{面接の流れ}
 \begin{refsection}
-  a
-\cite{lc-sys}
-\printbibliography[title=参考文献]
+  システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
+  \printjbibliography
 \end{refsection}
-
-\section{b}
+\section{モノリスではなくマイクロサービスで設計する}
 \begin{refsection}
-b
-いろはにほへと\cite{lc-high}
-\textbf{いろはにほへと}
-\printbibliography[title=参考文献]
-\end{refsection}
-\section{あまぞん}
-\begin{refsection}
-b
-いろはにほへと\cite{lc-high}
-\textbf{いろはにほへと}\cite{lc-sys}
-% \printbibliography[title=参考文献,segment=\therefsegment,heading=subbibliography]
-\printbibliography[title=参考文献]
+  課題はモノリスで設計するには複雑すぎるので、マイクロサービスで設計する\cite{lc-aa}。
+  \subsection{設問}
+  \begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]
+  \item モノリスと比べたときのマイクロサービスの利点と欠点をのべよ。\label{exe:monolith-micro}
+  \end{enumerate}
+  \subsection{解答}
+  \paragraph{\ref{exe:monolith-micro}}
+  利点の一例に、技術を適材適所で使いわけられることにある。欠点には、API呼びだしによるレイテンシーがある\cite{lc-aa}。
+  \printjbibliography
 \end{refsection}
 \end{document}
