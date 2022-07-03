@@ -5,6 +5,8 @@ backend=biber,
 sorting=none,
 defernumbers
 ]{biblatex}
+
+% fonts
 % \setmathfont{STIX Two Math}
 \setmainfont{Times New Roman}
 \setmainjfont{HiraMinProN-W3}[
@@ -14,4 +16,11 @@ BoldFont=HiraMinProN-W6
 \setsansfont{Helvetica Neue}
 \setmonofont{JetBrainsMono}
 \setmonojfont{SourceHanCodeJP}
+
+% patterns
 \newcommand{\printjbibliography}{\printbibliography[title=参考文献]}
+
+% section
+\newenvironment{section-bib}[1]
+{\section{#1}\begin{refsection}}
+{\printjbibliography\end{refsection}}
