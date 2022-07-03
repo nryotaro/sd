@@ -13,21 +13,39 @@ pdflang=ja-JP
 \date{\today}
 \maketitle
 \tableofcontents
+\part{基本}
 \section{面接の流れ}
 \begin{refsection}
   システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
   \printjbibliography
 \end{refsection}
 \section{モノリスではなくマイクロサービスで設計する}
+% モノリスとマイクロサービスの比較を書く。
 \begin{refsection}
   課題はモノリスで設計するには複雑すぎるので、マイクロサービスで設計する\cite{lc-aa}。
   \subsection{設問}
   \begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]
   \item モノリスと比べたときのマイクロサービスの利点と欠点をのべよ。\label{exe:monolith-micro}
   \end{enumerate}
-  \subsection{解答}
+  \subsection{解説}
   \subsubsection*{\ref{exe:monolith-micro}}
-  例えば、技術を適材適所で使いわけられるが、API呼びだしによるレイテンシーが発生する\cite{lc-aa}。
+  たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。
   \printjbibliography
 \end{refsection}
+\section{Queue}
+\begin{refsection}
+  複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
+  しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
+  サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことがけいる\ref{lc-isc}。
+  \subsection{設問}
+  \begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]
+  \item 2つのサービスが直接ではなくキューを介して非同期通信する利点をのべよ。また、利点を満足するためのキューへの要件は何か。\label{exe:async-queue}
+  \end{enumerate}
+  \subsection{解説}
+  \subsubsection*{\ref{exe:async-queue}}
+  キューは、メッセージを仲介する対象のシステムより安定していなけばならない。
+  \printjbibliography
+  
+\end{refsection}
+\part{ケーススタディ}
 \end{document}
