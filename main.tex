@@ -14,38 +14,47 @@ pdflang=ja-JP
 \maketitle
 \tableofcontents
 \part{基本}
-\section{面接の流れ}
-\begin{refsection}
+\begin{section-bib}{面接の流れ}
   システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
-  \printjbibliography
-\end{refsection}
-\section{モノリスではなくマイクロサービスで設計する}
-% モノリスとマイクロサービスの比較を書く。
-\begin{refsection}
+\end{section-bib}
+%
+\begin{section-bib}{モノリスではなくマイクロサービスで設計する}
+  % モノリスとマイクロサービスの比較を書く。
   課題はモノリスで設計するには複雑すぎるので、マイクロサービスで設計する\cite{lc-aa}。
   \subsection{設問}
-  \begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]
-  \item モノリスと比べたときのマイクロサービスの利点と欠点をのべよ。\label{exe:monolith-micro}
-  \end{enumerate}
+  \begin{exercise}
+  \item モノリスと比べたときのマイクロサービスの利点と欠点をのべよ。\label{exe:monolith-micro}  
+  \end{exercise}
   \subsection{解説}
   \subsubsection*{\ref{exe:monolith-micro}}
-  たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。
-  \printjbibliography
-\end{refsection}
-\section{Queue}
-\begin{refsection}
+  たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。  
+\end{section-bib}
+%
+\begin{section-bib}{Queue}
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
-  サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことがけいる\cite{lc-isc}。
+  サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことができる\cite{lc-isc}。
   \subsection{設問}
-  \begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]
+  \begin{exercise}
   \item 2つのサービスが直接ではなくキューを介して非同期通信する利点をのべよ。また、利点を満足するためのキューへの要件は何か。\label{exe:async-queue}
-  \end{enumerate}
+  \item 主要なメッセージキューのミドルウェアを挙げ、向き、不向きを比較せよ。\label{exe:queue-compare}
+  \end{exercise}
   \subsection{解説}
   \subsubsection*{\ref{exe:async-queue}}
-  キューは、メッセージを仲介する対象のシステムより安定していなけばならない。
-  \printjbibliography
+  対向システムの障害時のリクエストをキューに一時的に保存できるため、失敗するリクエストを減らすことができる\cite{lc-isc}。
+  キューは、中継対象のシステムより、安定していなけばならない。
+  キューでなくロードバランサでも負荷分散を実現できるので、キューの利点として負荷分散を先にあげるのはよくないだろうか。
+  \subsubsection*{\ref{exe:queue-compare}}
+  Kafka, RabbitMQ, ActiveMQがある\cite{lc-isc}。
+\end{section-bib}
+\begin{section-bib}{双方向通信}
+  ロングポーリングは、タイムアウトまでの時間を長くし、サーバからの応答を待つ。
+  このとき、サーバーはクライアウントのタイムアウトを検知できない\cite{sdi}。
+  \subsection{設問}
+  \begin{exercise}
+    \item ロングポーリングとWebSocketの使い分けについて議論せよ。
+  \end{exercise}
   
-\end{refsection}
+\end{section-bib}
 \part{ケーススタディ}
 \end{document}

@@ -23,4 +23,8 @@ BoldFont=HiraMinProN-W6
 % section
 \newenvironment{section-bib}[1]
 {\section{#1}\begin{refsection}}
-{\printjbibliography\end{refsection}}
+  {\printjbibliography\end{refsection}}
+
+\newenvironment{exercise}
+{\begin{enumerate}[label=問題\arabic*,labelsep=10pt,leftmargin=*]}
+{\end{enumerate}}
