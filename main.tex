@@ -54,7 +54,13 @@ pdflang=ja-JP
   \begin{exercise}
     \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
   \end{exercise}
+\end{section-bib}
+\begin{section-bib}{キャッシュ}
+  \subsection{Consistent Hashing}
+  キャッシュを複数のノードに分散して保存するとき、ハッシュ関数をキーに適用し、値が格納されたノードを特定できる。
+  このとき、参加するノードが変われば、キャッシュされたデータをリバランスしなければならない。
   
+  Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われる一方で、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
 \end{section-bib}
 \part{ケーススタディ}
 \end{document}
