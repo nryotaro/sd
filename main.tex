@@ -65,6 +65,19 @@ pdflang=ja-JP
   ノードの数がおおいほど、偏りを防げるため、1つのノードに対応する複数の仮想的なノードを円環上に配置することで、偏りを抑止できる。
   
   Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われる一方で、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
+  \subsection{Cache Eviction}
+  Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
 \end{section-bib}
+\begin{section-bib}{分散ファイルシステム}
+  CDNを使えば、Amazon S3などの分散ファイルシステムに配置したデータを高速に配信できる\cite{lc-databases}。
+\end{section-bib}
+
+\begin{section-bib}{データベース}
+  % ACIDの説明、NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
+%   \subsection{設問}
+%   \begin{exercise}
+%   \item 
+%   \end{exercise}
+% \end{section-bib}
 \part{ケーススタディ}
 \end{document}
