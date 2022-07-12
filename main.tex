@@ -73,11 +73,14 @@ pdflang=ja-JP
 \end{section-bib}
 
 \begin{section-bib}{データベース}
-  % ACIDの説明、NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
-%   \subsection{設問}
-%   \begin{exercise}
-%   \item 
-%   \end{exercise}
+  % NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
+  ACIDのConsistency(一貫性)は、データに常に真でなければならない不変性があることである\cite{ddia}。
+  属性が多いデータはドキュメント指向データベースが、クエリのパターンが少ないがデータ量が多いときは列指向データベースがよい\cite{lc-databases}。
+  ドキュメント指向データベースの例にMongoDBやCouchbaseが、列指向データベースの例にCassandraやHBaseがある。
+  \subsection{設問}
+  \begin{exercise}
+  \item ACIDの各アルファベットが示す特性について説明せよ。
+  \end{exercise}  
 \end{section-bib}
 \part{ケーススタディ}
 \end{document}
