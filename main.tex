@@ -82,5 +82,22 @@ pdflang=ja-JP
   \item ACIDの各アルファベットが示す特性について説明せよ。
   \end{exercise}  
 \end{section-bib}
-\part{ケーススタディ}
+\begin{section-bib}{Rate Limiting}
+  \subsection{Leaky Bucket}
+  蓄えられる未処理のリクエスト数と一定時間に処理できるリスエスト数の2つパラメータでリクエストを制御する。
+  蓄えられている未処理のリクエストから一定時間内の固定数のリクエストを処理する。
+  蓄えられるリクエスト数を越えてリクエストが届く場合リクエストを破棄する。
+  パラメタ数が少なくチューニングが簡単だが、蓄えられるリクエスト数が一杯になるまでは、一定時間に処理できる分量以上のリクエストを受けつけてしまう。
+  \subsection{Fixed Window}
+  一定時間のウィンドウ内に処理するリクエスト数の上限を決め、それを越えるリクエストを破棄する。
+  2つのウィンドウをまたいだ時刻にリクエストが多く到着する場合、ウィンドウサイズを越えたリクエスト数がウィンドウサイズと同じ時間内に処理されるおそれがある。
+  \subsection{Sliding Window}
+  一定時間のウィンドウをスライドさせ、Fixed windowのウィンドウをまたいだ場合に上限以上のリクエストが処理される問題をふせぐ。
+  Fixed Windowよりも制御に多く計算リソースが必要である。
+  \subsection{設問}
+  \begin{exercise}
+  \item リクエストの上限を制御するためのアルゴリズムをいくつか挙げ、その特徴をのべよ。
+  \end{exercise}    
+\end{section-bib}
+\part{Case Studies}
 \end{document}
