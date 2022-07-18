@@ -3,8 +3,7 @@
 pdftitle={システム設計},
 pdfauthor={nryotaro},
 pdfkeywords={System Design; Interview},
-pdflang=ja-JP
-]{hyperref}
+pdflang=ja-JP]{hyperref}
 \usepackage{main}
 \addbibresource{main.bib}
 \begin{document}
@@ -29,7 +28,7 @@ pdflang=ja-JP
   \subsubsection*{\ref{exe:monolith-micro}}
   たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。  
 \end{section-bib}
-%
+
 \begin{section-bib}{Queue}
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
@@ -67,6 +66,10 @@ pdflang=ja-JP
   Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われる一方で、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
   \subsection{Cache Eviction}
   Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
+  \subsection{設問}
+  \begin{exercise}
+    \item Redisを使うアプリケーションを構築し、Redisの基本的な機能に習熟せよ。
+  \end{exercise}
 \end{section-bib}
 \begin{section-bib}{分散ファイルシステム}
   CDNを使えば、Amazon S3などの分散ファイルシステムに配置したデータを高速に配信できる\cite{lc-databases}。
@@ -80,6 +83,7 @@ pdflang=ja-JP
   \subsection{設問}
   \begin{exercise}
   \item ACIDの各アルファベットが示す特性について説明せよ。
+  \item Cassandraを使うアプリケーションを構築し、その基本的な機能に習熟せよ。
   \end{exercise}  
 \end{section-bib}
 \begin{section-bib}{Rate Limiting}
@@ -100,4 +104,34 @@ pdflang=ja-JP
   \end{exercise}    
 \end{section-bib}
 \part{Case Studies}
+\begin{section-bib}{Google Maps}
+  \subsection{LeetCode}
+  解答は、ユーザの位置を特定する機能とユーザに道案内を提示する機能に対して個別のアーキテクチャ図を提示する\cite{lc-googlemaps}。
+  ユーザの位置情報からマップを更新する。
+  Spark Streaming Serviceは、新しいストリーミングサービスに置き変わった\cite{spark-streaming}。
+  以下の機能要件は、二点間を移動中に距離とETAを随時通知することであり、ユーザが明示的にリクエストを移動中に送るだけではない。
+  \begin{quote}
+    Find distance and ETA while travelling between 2 points.
+  \end{quote}
+  
+  \subsubsection{User Location Information}
+  \begin{description}[labelsep=10pt]
+  \item[Websocket Handler] ゲートウェイの役割。スケールアウトする。
+  \item[Websocket Manager] デバイスがどのWebsocket Handlerと通信しているかを記録する。
+  \item[Location Service] ユーザの位置情報を管理する。
+  \item[Map Update Service] 新しい道などの地理的な変化を通知する。
+  \item[Traffic Update Service] 移動速度の変化を通知する。
+  \item[Graph Processing Service] グラフを更新する。
+  \end{description}
+  \subsubsection{User Navigation Flow}
+  \begin{description}[labelsep=10pt]
+  \item[Area Search Service] 現在値を緯度経度に変換する。
+  \item[Navigation Tracking Service] ユーザが移動中に道案内を通知する。
+  \item[Maps Service] ユーザからの道案内のリクエストを受けつける。
+  \item[Historical data service] 過去のETAを蓄積し、最新のETAを計算できないときに、代替としてETAを提供する。
+  \item[Segments]
+  \end{description}
+  \subsubsection{自分の解答}
+  \href{https://docs.google.com/drawings/d/1w_a6eJVLqFsHHtm0dchQxM1NNOsW16ENjF7n_MRv6OE/edit}{編集中}
+  \end{section-bib}
 \end{document}
