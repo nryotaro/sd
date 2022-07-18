@@ -4,6 +4,7 @@ pdftitle={システム設計},
 pdfauthor={nryotaro},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
+\usepackage{graphicx}
 \usepackage{main}
 \addbibresource{main.bib}
 \begin{document}
@@ -16,7 +17,7 @@ pdflang=ja-JP]{hyperref}
 \begin{section-bib}{面接の流れ}
   システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
 \end{section-bib}
-%
+% 
 \begin{section-bib}{モノリスではなくマイクロサービスで設計する}
   % モノリスとマイクロサービスの比較を書く。
   課題はモノリスで設計するには複雑すぎるので、マイクロサービスの設計を提案する\cite{lc-aa}。
@@ -51,7 +52,7 @@ pdflang=ja-JP]{hyperref}
   このとき、サーバーはクライアウントのタイムアウトを検知できない\cite{sdi}。
   \subsection{設問}
   \begin{exercise}
-    \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
+  \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
   \end{exercise}
 \end{section-bib}
 \begin{section-bib}{キャッシュ}
@@ -68,7 +69,7 @@ pdflang=ja-JP]{hyperref}
   Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
   \subsection{設問}
   \begin{exercise}
-    \item Redisを使うアプリケーションを構築し、Redisの基本的な機能に習熟せよ。
+  \item Redisを使うアプリケーションを構築し、Redisの基本的な機能に習熟せよ。
   \end{exercise}
 \end{section-bib}
 \begin{section-bib}{分散ファイルシステム}
@@ -110,6 +111,7 @@ pdflang=ja-JP]{hyperref}
   ユーザの位置情報からマップを更新する。
   Spark Streaming Serviceは、新しいストリーミングサービスに置き変わった\cite{spark-streaming}。
   以下の機能要件は、二点間を移動中に距離とETAを随時通知することであり、ユーザが明示的にリクエストを移動中に送るだけではない。
+  Google Mapは地図をcanvas要素で描画する。
   \begin{quote}
     Find distance and ETA while travelling between 2 points.
   \end{quote}
@@ -133,5 +135,12 @@ pdflang=ja-JP]{hyperref}
   \end{description}
   \subsubsection{自分の解答}
   \href{https://docs.google.com/drawings/d/1w_a6eJVLqFsHHtm0dchQxM1NNOsW16ENjF7n_MRv6OE/edit}{編集中}
-  \end{section-bib}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+    {diagrams/googlemaps/googlemaps.pdf}
+    \caption{Googlemapsの答案}
+    \label{fig:lc-googlemaps}
+  \end{figure}
+\end{section-bib}
 \end{document}
