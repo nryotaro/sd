@@ -4,8 +4,8 @@ main.pdf: diagrams/googlemaps/leetcode.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
-	diagrams/googlemaps/*.eps
-	diagrams/googlemaps/*.svg
+	rm diagrams/googlemaps/*.eps
+	rm diagrams/googlemaps/*.svg
 	latexmk -C
 	rm *.bbl *.run.xml *~
 	rm -rf diagrams/venv

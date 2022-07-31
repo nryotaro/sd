@@ -3,6 +3,7 @@
 https://leetcode.com/explore/featured/card/system-design/690/system-design-case-studies/4386/
 
 """
+import sys
 import diagrams
 from diagrams.onprem import network as _network
 from diagrams.elastic import elasticsearch as _es
@@ -18,7 +19,8 @@ import diagrams.generic.storage as _storage
 with diagrams.Diagram(
     "GoogleMaps",
     show=False,
-    outformat="pdf",
+    filename=sys.argv[1],
+    outformat="svg",
     direction="TB",
 ):
     internet = _network.Internet("Internet")
