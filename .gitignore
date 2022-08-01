@@ -17,5 +17,6 @@
 
 # diagrams
 **/venv
-diagrams/googlemaps/*.eps
-diagrams/googlemaps/*.svg
+diagrams/*/*.eps
+diagrams/*/*.svg
+diagrams/*/*.svg

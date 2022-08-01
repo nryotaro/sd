@@ -1,6 +1,6 @@
 
 
-main.pdf: diagrams/googlemaps/leetcode.eps
+main.pdf: diagrams/googlemaps/leetcode.eps diagrams/amazon/leetcode.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
@@ -13,10 +13,13 @@ clean:
 diagrams/googlemaps/leetcode.eps: diagrams/venv/bin/activate
 	@$(call generate_diagram,googlemaps/leetcode)
 
+diagrams/amazon/leetcode.eps: diagrams/venv/bin/activate
+	@$(call generate_diagram,amazon/leetcode)
+
 diagrams/venv/bin/activate:
 	python -m venv diagrams/venv
 	. diagrams/venv/bin/activate
-	pip install diagrams
+	pip install diagrams python-lsp-server[all] black ipython
 
 define generate_diagram
 	. diagrams/venv/bin/activate
