@@ -1,28 +1,26 @@
-
-
-main.pdf: diagrams/googlemaps/leetcode.eps diagrams/amazon/leetcode.eps
+main.pdf: build/googlemaps/leetcode.eps build/amazon/leetcode.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
-	rm diagrams/googlemaps/*.eps
-	rm diagrams/googlemaps/*.svg
+	rm -rf build
 	latexmk -C
 	rm *.bbl *.run.xml *~
-	rm -rf diagrams/venv
+	rm -rf systems/venv
 
-diagrams/googlemaps/leetcode.eps: diagrams/venv/bin/activate
+build/googlemaps/leetcode.eps: systems/venv/bin/activate
 	@$(call generate_diagram,googlemaps/leetcode)
 
-diagrams/amazon/leetcode.eps: diagrams/venv/bin/activate
+build/amazon/leetcode.eps: systems/venv/bin/activate
 	@$(call generate_diagram,amazon/leetcode)
 
-diagrams/venv/bin/activate:
-	python -m venv diagrams/venv
-	. diagrams/venv/bin/activate
-	pip install diagrams python-lsp-server[all] black ipython
+systems/venv/bin/activate:
+	python -m venv systems/venv
+	. systems/venv/bin/activate
+	pip install -e .[dev]
 
 define generate_diagram
-	. diagrams/venv/bin/activate
-	python diagrams/$1.py diagrams/$1
-	inkscape diagrams/$1.svg -o diagrams/$1.eps
+	. systems/venv/bin/activate
+	mkdir -p build
+	python systems/systems/$1.py build/$1
+	inkscape build/$1.svg -o build/$1.eps
 endef

@@ -6,13 +6,12 @@ import sys
 import diagrams
 from diagrams import Cluster, Edge
 from diagrams.onprem.network import Internet
-
 from diagrams.onprem.compute import Server
 from diagrams.onprem.database import Mongodb, Postgresql, Cassandra
 from diagrams.onprem.inmemory import Redis
 from diagrams.elastic.elasticsearch import Elasticsearch
 from diagrams.programming.framework import React, Spring, Fastapi
-
+from systems.icons import NextJs
 
 with diagrams.Diagram(
     "Amazon",
@@ -58,3 +57,4 @@ with diagrams.Diagram(
         order_history = Spring("Order history")
         payment >> order_history
         order_history >> Cassandra("DB")
+        NextJs("frontend")

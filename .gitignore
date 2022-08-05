@@ -17,6 +17,6 @@
 
 # diagrams
 **/venv
-diagrams/*/*.eps
-diagrams/*/*.svg
-diagrams/*/*.svg
+build
+*.egg-info
+__pycache__
