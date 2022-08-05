@@ -9,8 +9,9 @@ from diagrams.onprem.network import Internet
 from diagrams.onprem.compute import Server
 from diagrams.onprem.database import Mongodb, Postgresql, Cassandra
 from diagrams.onprem.inmemory import Redis
+from diagrams.onprem.queue import Kafka
 from diagrams.elastic.elasticsearch import Elasticsearch
-from diagrams.programming.framework import React, Spring, Fastapi
+from diagrams.programming.framework import Spring, Fastapi
 from systems.icons import NextJs
 
 with diagrams.Diagram(
@@ -27,7 +28,7 @@ with diagrams.Diagram(
     internet >> Edge(color="blue") >> payment_services
 
     with Cluster(""):
-        frontend = React("Frontend")
+        frontend = NextJs("frontend")
         bff = Spring("BFF")
         internet >> [bff, frontend]
 
@@ -49,12 +50,11 @@ with diagrams.Diagram(
         cart >> [inventry, Cassandra("DB"), user]
         wishlist = Spring("Wishlist")
         wishlist >> [inventry, user, Cassandra("DB")]
-        bff >> [product, recommender, inventry, eta, wishlist, cart]
         payment = Spring("Payment")
-
+        bff >> [product, recommender, inventry, eta, wishlist, cart, payment]
+        log_aggregator = Kafka("Log aggragation")
         payment >> Edge(color="blue") >> internet
         payment >> [inventry, user, cart]
         order_history = Spring("Order history")
         payment >> order_history
         order_history >> Cassandra("DB")
-        NextJs("frontend")

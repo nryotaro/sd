@@ -4,7 +4,7 @@ main.pdf: build/googlemaps/leetcode.eps build/amazon/leetcode.eps
 clean:
 	rm -rf build
 	latexmk -C
-	rm *.bbl *.run.xml *~
+	rm -f *.bbl *.run.xml *~
 	rm -rf systems/venv
 
 build/googlemaps/leetcode.eps: systems/venv/bin/activate
@@ -16,7 +16,7 @@ build/amazon/leetcode.eps: systems/venv/bin/activate
 systems/venv/bin/activate:
 	python -m venv systems/venv
 	. systems/venv/bin/activate
-	pip install -e .[dev]
+	pip install -e systems[dev]
 
 define generate_diagram
 	. systems/venv/bin/activate
