@@ -10,3 +10,8 @@ def _resolve(filename):
 def NextJs(name: str) -> Custom:
     """Return a Custom object with Next.js logo."""
     return Custom(name, _resolve("nextjs.svg"))
+
+
+def Pytorch(name: str) -> Custom:
+    """Return a Custom object with Pytorch logo."""
+    return Custom(name, _resolve("pytorch.svg"))

@@ -10,9 +10,11 @@ from diagrams.onprem.compute import Server
 from diagrams.onprem.database import Mongodb, Postgresql, Cassandra
 from diagrams.onprem.inmemory import Redis
 from diagrams.onprem.queue import Kafka
+from diagrams.onprem.analytics import Spark
 from diagrams.elastic.elasticsearch import Elasticsearch
 from diagrams.programming.framework import Spring, Fastapi
-from systems.icons import NextJs
+from diagrams.aws.storage import SimpleStorageServiceS3Bucket
+from systems.icons import NextJs, Pytorch
 
 with diagrams.Diagram(
     "Amazon",
@@ -52,9 +54,18 @@ with diagrams.Diagram(
         wishlist >> [inventry, user, Cassandra("DB")]
         payment = Spring("Payment")
         bff >> [product, recommender, inventry, eta, wishlist, cart, payment]
-        log_aggregator = Kafka("Log aggragation")
+        log_queue = Kafka("Log queue")
+        [frontend, bff, payment, wishlist, cart] >> log_queue
+        log_aggregator = Spark("Log aggregation")
+        log_queue >> log_aggregator
+        log_storage = SimpleStorageServiceS3Bucket("Log Storage")
+        log_aggregator >> log_storage
+
         payment >> Edge(color="blue") >> internet
         payment >> [inventry, user, cart]
         order_history = Spring("Order history")
         payment >> order_history
+
         order_history >> Cassandra("DB")
+        trainer = Pytorch("Recommendation Trainer")
+        trainer >> log_storage
