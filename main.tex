@@ -30,7 +30,11 @@ pdflang=ja-JP]{hyperref}
   たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。  
 \end{section-bib}
 
-\begin{section-bib}{Queue}
+\begin{section-bib}{非同期メッセージング}
+  ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。
+  Producerでの失敗を伝えるために使えそう。
+  また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
+  \subsection{Queue}
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
   サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことができる\cite{lc-isc}。
@@ -153,7 +157,7 @@ pdflang=ja-JP]{hyperref}
   \end{figure}
 \end{section-bib}
 \begin{section-bib}{Amazon System Design}
-  \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}
+  \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
   解答の問題点と長所をいれて改修する。
   データの更新情報のフローがない。
   非同期結果整合性でよくとりこぼしがないほうがいいところはkafkaにしよう。
@@ -163,19 +167,21 @@ pdflang=ja-JP]{hyperref}
     {build/amazon/leetcode.eps}
     \caption{Amazonの答案}
     \label{fig:lc-amazon}
-  \end{figure}  
+  \end{figure}
 \end{section-bib}
 \begin{section-bib}{Facebook System Design}
-  \subsection{答案}
+  \subsection{LeetCode}
+  \subsubsection{答案}
   \href{https://docs.google.com/drawings/d/1Xe7tRV1plpmUM1GEbcm1Rr-Sl4nuBaOe9AlLlUXsHQw/edit}{編集中}。
   タイムラインに表示すべきPostのユーザを管理するために必要な抽象データ構造は、ユーザIDからユーザIDの集合を要素とするハッシュテーブルであるため、タイムラインの表示にグラフDBはいらない。
   BFFを使うとオーケストレーターパターン\cite{microsoft-choreography}になってしまうのだろうか。
-  \subsection{Leetcodeの解答}
-  タイムラインの表示にグラフデータベースはいらない。
   メッセージサービスを制御の反転につかえそう。
-  Post Injestion ServiceはPostの書き込みを、Post Serviceは読み込みを担当しているが、永続化層はコマンドとクエリに分かれておらず、CQRSではない\cite{microsoft-cqrs}。
-  タイムラインの要件への質問のパターンに、タイムラインの順序が時系列だけでいいかが使えそう。
-  Kafkaは、ポーリングを避けてイベントをほかのサービスに通知するため
+  タイムラインの要件が曖昧であれば、タイムラインの順序が厳密な時系列であるべきか聞いたほうがよさそう。
+  Postはスパイクしうるため、処理の平準化のためにメッセージングサービスを使ったほうがよさそう。
+  \subsubsection{Leetcodeの解答}
+  Post Injestion Service\cite{lc-facebook}はPostの書き込みを、Post Serviceは読み込みを担当しているが、永続化層はコマンドとクエリに分かれておらず、CQRSではない\cite{microsoft-cqrs}。
+  Kafkaは、ポーリングを避けてイベントをほかのサービスに通知するために使われているのだろうか。
+  KafkaのConsumerが失敗した場合の処理を考慮していないのではないか。
   \subsection{設問}
   \begin{exercise}
   \item CDNにおいたファイルへのアクセスに認証をかける手段を実在のサービスをまじえて例示せよ。
