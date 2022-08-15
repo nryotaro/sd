@@ -24,6 +24,9 @@ def draw(filepath: str):
         filename=sys.argv[1],
         outformat="svg",
         direction="TB",
+        graph_attr={"fontname": "Times New Roman"},
+        edge_attr={"fontname": "Times New Roman"},
+        node_attr={"fontname": "Times New Roman"},
     ):
         internet = _network.Internet("Internet")
         data_provider = _storage.Storage(

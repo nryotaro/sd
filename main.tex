@@ -54,6 +54,8 @@ pdflang=ja-JP]{hyperref}
 \begin{section-bib}{双方向通信}
   ロングポーリングは、タイムアウトまでの時間を長くし、サーバからの応答を待つ。
   このとき、サーバーはクライアウントのタイムアウトを検知できない\cite{sdi}。
+  サーバーからの通知が必要でクライアントからの通知がいらなければ、WebSocketではなくEvent Sourceを使えるか検討するとよいかもしれない。
+  2022年8月におけるTwitterのタイムラインには、Event Sourceが使われている。
   \subsection{設問}
   \begin{exercise}
   \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
@@ -177,7 +179,17 @@ pdflang=ja-JP]{hyperref}
   BFFを使うとオーケストレーターパターン\cite{microsoft-choreography}になってしまうのだろうか。
   メッセージサービスを制御の反転につかえそう。
   タイムラインの要件が曖昧であれば、タイムラインの順序が厳密な時系列であるべきか聞いたほうがよさそう。
-  Postはスパイクしうるため、処理の平準化のためにメッセージングサービスを使ったほうがよさそう。
+  Postはスパイクする可能性があり、また、高速に保存するため、処理の平準化のためにメッセージングサービスを間においた。
+  TimelineとBFFはEventSourceで通信する。Timelineがstored postsを取得したら通知する。
+  
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.25]
+    {build/facebook/leetcode.eps}
+    \caption{Facebookの答案}
+    \label{fig:lc-facebook}
+  \end{figure}
+\end{section-bib}  
   \subsubsection{Leetcodeの解答}
   Post Injestion Service\cite{lc-facebook}はPostの書き込みを、Post Serviceは読み込みを担当しているが、永続化層はコマンドとクエリに分かれておらず、CQRSではない\cite{microsoft-cqrs}。
   Kafkaは、ポーリングを避けてイベントをほかのサービスに通知するために使われているのだろうか。

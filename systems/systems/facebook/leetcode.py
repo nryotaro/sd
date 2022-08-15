@@ -35,42 +35,61 @@ def draw(filepath: str):
         filename=filepath,
         outformat="svg",
         direction="TB",
-        graph_attr={"newrank": "true"},
+        graph_attr={"newrank": "true", "fontname": "Times New Roman"},
     ):
         with Cluster(
-            "",
+            "external",
             graph_attr={
                 "rank": "same",
                 "bgcolor": "#ffffff",
                 "pencolor": "#ffffff",
+                "fontcolor": "#ffffff",
             },
         ):
             internet = Internet("Internet")
+            static_contents_storage = SimpleStorageServiceS3Bucket(
+                "Static contents"
+            )
             cdn = CloudFront("CDN")
             internet >> cdn
-        with Cluster():
+            cdn >> static_contents_storage
+        with Cluster("internal", graph_attr={"fontcolor": "#ffffff"}):
             bff = Spring("BFF")
+
             internet >> [NextJs("Frontend"), bff]
 
             timeline = Spring("Timeline")
-            user = Spring("User")
+
             friendship = Spring("Friendship")
+            friendship >> Redis("Cache")
+
             timeline >> friendship
             friendship >> Postgresql("DB")
+            user = Spring("User")
+            user_add_delete = Kafka("adding and deletion of users")
+            [user, friendship] >> user_add_delete
+
             user >> Postgresql("DB")
-            bff >> [timeline, user]
+            access_events = Kafka("User access events")
+            user >> access_events
             post = Spring("Post")
+            posts = Kafka("posts")
+            stored_posts = Kafka("stored posts")
+            post >> stored_posts
+            timeline >> stored_posts
+            bff >> [user, post, timeline, friendship, posts]
+            timeline >> bff
+            bff >> internet
             post >> [
+                posts,
                 Cassandra("DB(like, posts, comments)"),
                 Elasticsearch("Search"),
                 Redis("Cache"),
                 Cassandra("Activity logs"),
+                static_contents_storage,
+                access_events,
             ]
-
-            cache_maintainer = Spring("Cache Maintainer")
-            cache_maintainer >> [user, post]
             timeline >> post
-            post >> cdn
 
 
 if __name__ == "__main__":
