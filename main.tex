@@ -102,7 +102,7 @@ pdflang=ja-JP]{hyperref}
 \end{section-bib}
 \begin{section-bib}{Rate Limiting}
   \subsection{Leaky Bucket}
-  蓄えられる未処理のリクエスト数と一定時間に処理できるリスエスト数の2つパラメータでリクエストを制御する。
+  蓄えられる未処理のリクエスト数と一定時間に処理できるリスエスト数の2つパラメータでリクエストを制御する\cite{sdi}。
   蓄えられている未処理のリクエストから一定時間内の固定数のリクエストを処理する。
   蓄えられるリクエスト数を越えてリクエストが届く場合リクエストを破棄する。
   パラメタ数が少なくチューニングが簡単だが、蓄えられるリクエスト数が一杯になるまでは、一定時間に処理できる分量以上のリクエストを受けつけてしまう。
@@ -115,7 +115,7 @@ pdflang=ja-JP]{hyperref}
   \subsection{設問}
   \begin{exercise}
   \item リクエストの上限を制御するためのアルゴリズムをいくつか挙げ、その特徴をのべよ。
-  \end{exercise}    
+  \end{exercise}
 \end{section-bib}
 \part{Case Studies}
 \begin{section-bib}{Google Maps}
@@ -158,7 +158,7 @@ pdflang=ja-JP]{hyperref}
 \end{section-bib}
 \begin{section-bib}{Amazon System Design}
   \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
-  解答の問題点と長所をいれて改修する。
+  解答\cite{lc-amazon}の問題点と長所をいれて改修する。
   データの更新情報のフローがない。
   非同期結果整合性でよくとりこぼしがないほうがいいところはkafkaにしよう。
   \begin{figure}[ht]
