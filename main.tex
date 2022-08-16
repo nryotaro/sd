@@ -1,6 +1,6 @@
 \documentclass{jlreq}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
-pdftitle={システム設計},
+pdftitle={Cracking the System Design Interview},
 pdfauthor={nryotaro},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
@@ -8,7 +8,7 @@ pdflang=ja-JP]{hyperref}
 \usepackage{main}
 \addbibresource{main.bib}
 \begin{document}
-\title{システム設計}
+\title{Cheating in the System Design Interview}
 \author{nryotaro}
 \date{\today}
 \maketitle
@@ -59,6 +59,7 @@ pdflang=ja-JP]{hyperref}
   \subsection{設問}
   \begin{exercise}
   \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
+  \item WebsocketとEvent Sourceの利点欠点を比較せよ。
   \end{exercise}
 \end{section-bib}
 \begin{section-bib}{Pub/Sub}
@@ -189,7 +190,6 @@ pdflang=ja-JP]{hyperref}
     \caption{Facebookの答案}
     \label{fig:lc-facebook}
   \end{figure}
-\end{section-bib}  
   \subsubsection{Leetcodeの解答}
   Post Injestion Service\cite{lc-facebook}はPostの書き込みを、Post Serviceは読み込みを担当しているが、永続化層はコマンドとクエリに分かれておらず、CQRSではない\cite{microsoft-cqrs}。
   Kafkaは、ポーリングを避けてイベントをほかのサービスに通知するために使われているのだろうか。
