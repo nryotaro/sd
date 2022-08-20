@@ -1,15 +1,25 @@
 """Define protocols."""
 import typing
+from graphviz import Digraph
 
 
 class NodeProtocol(typing.Protocol):
-    """"""
+    """Interface of a node."""
 
     @property
     def identity(self) -> str:
-        """id of a node."""
+        """ID of a node."""
 
 
-class GraphProtocol(typing.Protocol):
-    def put_node(self, node: NodeProtocol):
-        """Put a node."""
+class SubGraphProtocol(typing.Protocol):
+    """Represent a subgraph."""
+
+    @property
+    def identity(
+        self,
+    ) -> str:
+        """Identity."""
+
+
+class DigGraphProtocol(typing.Protocol):
+    """Represent a digraph."""
