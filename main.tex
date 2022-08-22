@@ -201,4 +201,44 @@ pdflang=ja-JP]{hyperref}
   \item Cassandraは集計関数があるか。たとえば、Likeの総数を誰がどのPostにLikeしたかを示すレコードから集計できるか。
   \end{exercise}
 \end{section-bib}
+\begin{section-bib}{Airbnb System Design}
+  \subsection{LeetCode}
+  文章ではなく動画で解説がなされてる\cite{lc-airbnb}。
+  動画のある機能要件と非機能要件を列挙する。
+  模範回答のアーキテクチャは他のLeetCodeの回答とおなじくKafkaを多用した非同期アーキテクチャだが、System Design Interviewはメッセージングサービスを使っていない\cite{sdi2}。
+  LeetCodeの回答はKafkaを使った非同期アーキテクチャに偏向しているように思える。
+
+  氏名やアドレスなどのユーザの予約以外の情報を保存する専用のサービスがない。予約していないユーザデータもBookingに保存するのだろうか。
+  \begin{itemize}
+  \item 機能要件
+    \begin{itemize}
+    \item Hotel
+      \begin{itemize}
+      \item Onboarding
+      \item Updating
+      \item Bookings
+      \end{itemize}
+    \item User
+      \begin{itemize}
+      \item Search
+      \item Book
+      \item Check Bookings
+      \end{itemize}
+    \end{itemize}
+  \item 非機能要件
+    \begin{itemize}
+    \item Low latency
+    \item High availability
+    \item High consistency
+    \item Scale
+      \begin{itemize}
+      \item 500K hotels
+      \item 10M rooms
+      \item 1000 rooms / hotel (max 7,500)
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+  \subsubsection{答案}
+  \href{https://docs.google.com/drawings/d/1oregVo4fx3HTBSgF3dMn4DQ3X_REdrHiq2u5p3FegcQ/edit}{編集中}
+\end{section-bib}
 \end{document}

@@ -5,7 +5,8 @@ system :=
 
 main.pdf: build/googlemaps/leetcode.eps \
           build/amazon/leetcode.eps \
-          build/facebook/leetcode.eps
+          build/facebook/leetcode.eps \
+	  build/airbnb/leetcode.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
@@ -16,6 +17,9 @@ clean:
 
 draw: systems/venv/bin/activate
 	$(call generate_diagram,$(system))
+
+build/airbnb/leetcode.eps: systems/venv/bin/activate
+	$(call generate_diagram,airbnb/leetcode)
 
 build/facebook/leetcode.eps: systems/venv/bin/activate
 	$(call generate_diagram,facebook/leetcode)
