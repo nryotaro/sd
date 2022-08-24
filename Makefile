@@ -32,13 +32,13 @@ build/amazon/leetcode.eps: systems/venv/bin/activate
 
 systems/venv/bin/activate:
 	python -m venv systems/venv
-	. systems/venv/bin/activate
-	pip install --upgrade pip
+	. systems/venv/bin/activate && \
+	pip install --upgrade pip && \
 	pip install -e systems[dev]
 
 define generate_diagram
-	. systems/venv/bin/activate
 	mkdir -p build
+	. systems/venv/bin/activate && \
 	python systems/systems/$1.py build/$1
 	inkscape build/$1.svg -o build/$1.eps
 endef
