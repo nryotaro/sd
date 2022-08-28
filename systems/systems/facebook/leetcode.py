@@ -15,7 +15,7 @@ from diagrams.onprem.analytics import Spark
 from diagrams.elastic.elasticsearch import Elasticsearch
 from diagrams.programming.framework import Spring, Fastapi
 from diagrams.aws.storage import SimpleStorageServiceS3Bucket
-from systems.nodes import NextJs, Pytorch
+from systems.nodes import nextJs, Pytorch
 
 # from systems.hornet.digraph import Digraph
 # from systems.hornet.node import Node
@@ -56,7 +56,7 @@ def draw(filepath: str):
         with Cluster("internal", graph_attr={"fontcolor": "#ffffff"}):
             bff = Spring("BFF")
 
-            internet >> [NextJs("Frontend"), bff]
+            internet >> [nextJs("Frontend"), bff]
 
             timeline = Spring("Timeline")
 

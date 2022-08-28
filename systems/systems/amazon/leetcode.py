@@ -14,7 +14,7 @@ from diagrams.onprem.analytics import Spark
 from diagrams.elastic.elasticsearch import Elasticsearch
 from diagrams.programming.framework import Spring, Fastapi
 from diagrams.aws.storage import SimpleStorageServiceS3Bucket
-from systems.nodes import NextJs, Pytorch
+from systems.nodes import nextJs, Pytorch
 
 
 def draw(filepath: str):
@@ -41,7 +41,7 @@ def draw(filepath: str):
             internet >> Edge(color="blue") >> payment_services
         with Cluster(" "):
 
-            frontend = NextJs("frontend")
+            frontend = nextJs("frontend")
             bff = Spring("BFF")
             internet >> [bff, frontend]
 

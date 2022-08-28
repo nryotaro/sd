@@ -1,16 +1,18 @@
 """Airbnb System Design."""
 import sys
 from hornet.digraph import Digraph, SubGraph
-from systems.nodes import Kafka
-
-
-def draw(filepath: str):
-    """Draw a diagram."""
-    # Cleanup True as default
-    with Digraph(filepath, {}, cleanup=True):
-        with SubGraph({"rank": "same"}):
-            Kafka("queue")
+from systems.nodes import Kafka, Internet, NextJs, Alb, ApiGateway
 
 
 if __name__ == "__main__":
-    draw(sys.argv[1])
+    """Draw an Airbnb system architecture."""
+    with Digraph(
+        sys.argv[1], {"dpi": "350", "splines": "true"}, cleanup=False
+    ):
+        internet = Internet("Internet")
+        frontend = NextJs("Frontend")
+        internet > frontend
+        Alb("Load Balancer")
+        ApiGateway("API Gateway")
+        with SubGraph({"rank": "same"}):
+            Kafka("queue")
