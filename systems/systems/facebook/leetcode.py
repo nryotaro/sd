@@ -35,7 +35,10 @@ def draw(filepath: str):
         filename=filepath,
         outformat="svg",
         direction="TB",
-        graph_attr={"newrank": "true", "fontname": "Times New Roman"},
+        graph_attr={
+            "newrank": "true",
+            "fontname": "Times New Roman",
+        },
     ):
         with Cluster(
             "external",

@@ -45,15 +45,19 @@ def ApiGateway(name: str) -> Node:
 
 
 def _create_node(name: str, image_file_name: str) -> Node:
+    height = 1.6 + 0.4 * name.count("\n")
+
     return Node(
         uuid.uuid4().hex[:4],
         {
-            "xlabel": name,
             "imagescale": "true",
+            "imagepos": "tc",
             "fixedsize": "true",
-            "label": "",
+            "label": name,
+            "labelloc": "b",
             "shape": "none",
+            "width": "1.4",
+            "height": f"{height}",
             "image": _resolve(image_file_name),
-            "imagescale": "true",
         },
     )
