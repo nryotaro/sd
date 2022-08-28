@@ -7,7 +7,7 @@ from systems.nodes import Kafka
 def draw(filepath: str):
     """Draw a diagram."""
     # Cleanup True as default
-    with Digraph(f"{filepath}.svg", {}, cleanup=True):
+    with Digraph(filepath, {}, cleanup=True):
         with SubGraph({"rank": "same"}):
             Kafka("queue")
 

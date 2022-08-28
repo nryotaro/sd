@@ -1,12 +1,9 @@
-.PHONY: clean draw
+.PHONY: clean
 
-system :=
-
-
-main.pdf: build/googlemaps/leetcode.eps \
+main.pdf: build/airbnb/leetcode.eps \
           build/amazon/leetcode.eps \
-          build/facebook/leetcode.eps \
-	  build/airbnb/leetcode.eps
+          build/googlemaps/leetcode.eps \
+          build/facebook/leetcode.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
@@ -15,19 +12,16 @@ clean:
 	rm -f *.bbl *.run.xml *~
 	rm -rf systems/venv
 
-draw: systems/venv/bin/activate
-	$(call generate_diagram,$(system))
+build/airbnb/leetcode.eps: systems/venv/bin/activate systems/systems/airbnb/leetcode.py
+	$(call draw_diagram,airbnb/leetcode)
 
-build/airbnb/leetcode.eps: systems/venv/bin/activate
-	$(call generate_diagram,airbnb/leetcode)
-
-build/facebook/leetcode.eps: systems/venv/bin/activate
+build/facebook/leetcode.eps: systems/venv/bin/activate systems/systems/facebook/leetcode.py
 	$(call generate_diagram,facebook/leetcode)
 
-build/googlemaps/leetcode.eps: systems/venv/bin/activate
+build/googlemaps/leetcode.eps: systems/venv/bin/activate systems/systems/googlemaps/leetcode.py
 	$(call generate_diagram,googlemaps/leetcode)
 
-build/amazon/leetcode.eps: systems/venv/bin/activate
+build/amazon/leetcode.eps: systems/venv/bin/activate systems/systems/amazon/leetcode.py
 	$(call generate_diagram,amazon/leetcode)
 
 systems/venv/bin/activate:
@@ -40,5 +34,12 @@ define generate_diagram
 	mkdir -p build
 	. systems/venv/bin/activate && \
 	python systems/systems/$1.py build/$1
+	inkscape build/$1.svg -o build/$1.eps
+endef
+
+define draw_diagram
+	mkdir -p $(shell dirname build/$1)
+	. systems/venv/bin/activate && \
+	python systems/systems/$1.py build/$1.svg
 	inkscape build/$1.svg -o build/$1.eps
 endef
