@@ -26,7 +26,7 @@ def Kafka(name: str) -> Node:
 
 def Internet(name: str) -> Node:
     """Internet."""
-    return _create_node(name, "internet.svg")
+    return _create_node(name, "internet.svg", 1.8, width=1.8)
 
 
 def NextJs(name: str) -> Node:
@@ -44,8 +44,20 @@ def ApiGateway(name: str) -> Node:
     return _create_node(name, "api_gateway.svg")
 
 
-def _create_node(name: str, image_file_name: str) -> Node:
-    height = 1.6 + 0.4 * name.count("\n")
+def Spring(name: str) -> Node:
+    """Spring."""
+    return _create_node(name, "spring.svg", 1.8)
+
+
+def PostgreSQL(name: str) -> Node:
+    """PostgreSQL."""
+    return _create_node(name, "postgresql.svg", 1.8)
+
+
+def _create_node(
+    name: str, image_file_name: str, base_height: int = 1.6, width: int = 1.4
+) -> Node:
+    height = base_height + 0.4 * name.count("\n")
 
     return Node(
         uuid.uuid4().hex[:4],
@@ -56,7 +68,7 @@ def _create_node(name: str, image_file_name: str) -> Node:
             "label": name,
             "labelloc": "b",
             "shape": "none",
-            "width": "1.4",
+            "width": f"{width}",
             "height": f"{height}",
             "image": _resolve(image_file_name),
         },

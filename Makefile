@@ -3,7 +3,8 @@
 main.pdf: build/airbnb/leetcode.eps \
           build/amazon/leetcode.eps \
           build/googlemaps/leetcode.eps \
-          build/facebook/leetcode.eps
+          build/facebook/leetcode.eps \
+          main.tex
 	latexmk -gg -pdflua main.tex
 
 clean:
