@@ -54,6 +54,21 @@ def PostgreSQL(name: str) -> Node:
     return _create_node(name, "postgresql.svg", 1.8)
 
 
+def Redis(name: str) -> Node:
+    """Redis."""
+    return _create_node(name, "redis.svg")
+
+
+def HAProxy(name: str) -> Node:
+    """Redis."""
+    return _create_node(name, "haproxy.svg")
+
+
+def Elasticsearch(name: str) -> Node:
+    """Elasticsearch."""
+    return _create_node(name, "elasticsearch.svg")
+
+
 def _create_node(
     name: str, image_file_name: str, base_height: int = 1.6, width: int = 1.4
 ) -> Node:
