@@ -28,7 +28,7 @@ if __name__ == "__main__":
         cleanup=False,
     ):
         internet = Internet("Internet")
-        with Cluster({"label": "doge"}):
+        with Cluster():
             with SubGraph({"rank": "same"}):
                 frontend = NextJs("Frontend")
                 api_gateway = Spring("API Gateway")
