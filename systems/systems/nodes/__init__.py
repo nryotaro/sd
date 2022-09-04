@@ -26,7 +26,7 @@ def Kafka(name: str) -> Node:
 
 def Internet(name: str) -> Node:
     """Internet."""
-    return _create_node(name, "internet.svg", 1.8, width=1.8)
+    return _create_node(name, "internet.svg")
 
 
 def NextJs(name: str) -> Node:
@@ -46,12 +46,17 @@ def ApiGateway(name: str) -> Node:
 
 def Spring(name: str) -> Node:
     """Spring."""
-    return _create_node(name, "spring.svg", 1.8)
+    return _create_node(name, "spring.svg")
 
 
 def PostgreSQL(name: str) -> Node:
     """PostgreSQL."""
-    return _create_node(name, "postgresql.svg", 1.8)
+    return _create_node(name, "postgresql.svg")
+
+
+def Python(name: str) -> Node:
+    """Python."""
+    return _create_node(name, "python.svg")
 
 
 def Redis(name: str) -> Node:
@@ -60,8 +65,13 @@ def Redis(name: str) -> Node:
 
 
 def HAProxy(name: str) -> Node:
-    """Redis."""
+    """HAProxy."""
     return _create_node(name, "haproxy.svg")
+
+
+def Cassandra(name: str) -> Node:
+    """Redis."""
+    return _create_node(name, "cassandra.svg")
 
 
 def Elasticsearch(name: str) -> Node:
@@ -70,7 +80,7 @@ def Elasticsearch(name: str) -> Node:
 
 
 def _create_node(
-    name: str, image_file_name: str, base_height: int = 1.6, width: int = 1.4
+    name: str, image_file_name: str, base_height: int = 2.0, width: int = 1.6
 ) -> Node:
     height = base_height + 0.4 * name.count("\n")
 
