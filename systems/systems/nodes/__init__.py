@@ -85,12 +85,11 @@ def _create_node(
     height = base_height + 0.4 * name.count("\n")
 
     return Node(
-        uuid.uuid4().hex[:4],
+        name,
         {
             "imagescale": "true",
             "imagepos": "tc",
             "fixedsize": "true",
-            "label": name,
             "labelloc": "b",
             "shape": "none",
             "width": f"{width}",
