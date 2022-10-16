@@ -250,6 +250,7 @@ pdflang=ja-JP]{hyperref}
 \end{section-bib}
 \begin{section-bib}{Video Streaming Service System Design}
   \subsection{LeetCode}
+  \subsubsection{模範回答}
   \begin{itemize}
   \item 機能要件
     \begin{itemize}
@@ -265,11 +266,16 @@ pdflang=ja-JP]{hyperref}
     \item High availability
     \end{itemize}
   \end{itemize}
-  \href{https://docs.google.com/drawings/d/1GL0j7JJm0ip7DnNsdWOHBbfoHmz5U1LwwcTsbRD7IZ4/edit}{答案}
-  動画の形式を複数サポートしないとデバイスをサポートしない。
-  解像度を途中で変える方法は？
-  海賊版対策
-  処理がおわったときのnotificationサービスがある。
-  CDNのリンクを特定するサービスがいる
-\end{section-bib}
+  \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4388/}{模範回答}には海賊版対策の機能がある。アップロードの終了を通知するサービスがある。
+  CDNのリンクを特定するサービスがいる。
+  \subsubsection{答案}
+  \href{https://docs.google.com/drawings/d/1GL0j7JJm0ip7DnNsdWOHBbfoHmz5U1LwwcTsbRD7IZ4/edit}{答案}。  
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+    {build/netflix/leetcode.eps}
+    \caption{答案}
+    \label{fig:netflix-lc}
+  \end{figure}
+\end{section-bib}  
 \end{document}
