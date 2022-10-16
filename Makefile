@@ -5,6 +5,7 @@ main.pdf: build/airbnb/leetcode.eps \
           build/googlemaps/leetcode.eps \
           build/facebook/leetcode.eps \
           build/netflix/leetcode.eps \
+          main.bib \
           main.tex
 	latexmk -gg -pdflua main.tex
 
