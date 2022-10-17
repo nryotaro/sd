@@ -1,6 +1,5 @@
 """Provide Custom classes with icons."""
 import os.path
-import uuid
 from diagrams.custom import Custom
 from hornet.node import Node
 
@@ -62,6 +61,16 @@ def Python(name: str) -> Node:
 def Redis(name: str) -> Node:
     """Redis."""
     return _create_node(name, "redis.svg")
+
+
+def CloudFront(name: str) -> Node:
+    """CloudFront."""
+    return _create_node(name, "cloudfront.svg")
+
+
+def S3(name: str) -> Node:
+    """S3."""
+    return _create_node(name, "s3.svg")
 
 
 def HAProxy(name: str) -> Node:
