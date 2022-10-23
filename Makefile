@@ -5,6 +5,8 @@ main.pdf: build/airbnb/leetcode.eps \
           build/googlemaps/leetcode.eps \
           build/facebook/leetcode.eps \
           build/netflix/leetcode.eps \
+          build/notification/leetcode.eps \
+          build/notification/leetcode.eps \
           main.bib \
           main.tex
 	latexmk -gg -pdflua main.tex
@@ -29,6 +31,9 @@ build/amazon/leetcode.eps: systems/venv/bin/activate systems/systems/amazon/leet
 
 build/netflix/leetcode.eps: systems/venv/bin/activate systems/systems/netflix/leetcode.py
 	$(call draw_diagram,netflix/leetcode)
+
+build/notification/leetcode.eps: systems/venv/bin/activate systems/systems/notification/leetcode.py
+	$(call draw_diagram,notification/leetcode)
 
 systems/venv/bin/activate:
 	python -m venv systems/venv
