@@ -290,4 +290,18 @@ pdflang=ja-JP]{hyperref}
     \label{fig:notification-lc}
   \end{figure}  
 \end{section-bib}
+\begin{section-bib}{Design A URL SHORTER}
+  \subsection{概要}
+  LeetCodeとCracking the System Design Interview\cite{sdi}の解説における要所は、短いURLを重複なく発行するアルゴリズムにある。
+  \subsection{LeetCode}
+  \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4390/}{問題文}。
+  \href{https://docs.google.com/drawings/d/12tMudFwu-JWC6Hip34f5Js5eKX3KiAz1QffMaffhDb4/edit}{答案}。
+  \subsection{Cracking the System Design Interview}
+  重複検知にブルームフィルタ\cite{bloomfilter}か\href{https://en.wikipedia.org/wiki/Base62}{Base62}を使う。
+  ブルームフィルタは、偽陽性を許容し、ハッシュ値の保持に必要な空間を抑えることで、空間効率を上げる\cite{bloomfilter}。
+  ハッシュ空間には0からNまでのアドレスをもつNビットの空間をつかう。 要素のない初期状態では、すべてに0初期化される。 ある要素を空間に追加するときは、ハッシュコーディングで0からN-1までの値をとりえるd個の値を要素から計算し、そのd個のアドレスに1を格納する。 要素が空間に含まれるか確かめるときは、追加時と同様、d個のアドレスを求める。 そして、d個のアドレスにある全ての値が1であれば要素が存在し、それ以外は存在しないとみなす。
+Base62は数字とアルファベットからなる62進数による数値の表現である\cite{base62}。
+互いに素な定数$b$と$h$をつかった以下のrolling hash関数をつかえばハッシュ値を生成できる\cite{rollinghash}。
+  \[ H = (c_1b^{m-1} + c_2 b^{m-2} + \dots + c_mb^0 ) mod h\]
+\end{section-bib}
 \end{document}
