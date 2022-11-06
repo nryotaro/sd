@@ -53,6 +53,11 @@ def PostgreSQL(name: str) -> Node:
     return _create_node(name, "postgresql.svg")
 
 
+def User(name: str) -> Node:
+    """User."""
+    return _create_node(name, "user.svg")
+
+
 def Python(name: str) -> Node:
     """Python."""
     return _create_node(name, "python.svg")

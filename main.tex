@@ -304,4 +304,18 @@ Base62は数字とアルファベットからなる62進数による数値の表
 互いに素な定数$b$と$h$をつかった以下のrolling hash関数をつかえばハッシュ値を生成できる\cite{rollinghash}。
   \[ H = (c_1b^{m-1} + c_2 b^{m-2} + \dots + c_mb^0 ) mod h\]
 \end{section-bib}
+\begin{section-bib}{Twitter System Design}
+  \subsection{LeetCode}
+  \href{https://docs.google.com/drawings/d/1SU6qTfwFEy_aSr-Ik-FPNRJ2zWeNa6SuyRc64uyhPuo/edit}{答案}。
+  \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4391/}{模範回答}も\cite{ddia}もフォロワー数の多いユーザのツイートの配信と多くないユーザの配信処理を分けている。
+  ユーザがタイムラインを参照する前に、タイムラインをキャッシュしておく。フォロー中のユーザがツイートしたら、フォローしているユーザの各タイムラインのキャッシュにツイートを追加する。ただし、ツイートしたユーザのフォロワー数が多いと追加する量が多くなるので、キャッシュには含めない。
+  タイムラインのリクエスト時に、フォロワー数の多いユーザのツイートを取得する。
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+    {build/twitter/leetcode.eps}
+    \caption{答案}
+    \label{fig:twitter-lc}
+  \end{figure}  
+\end{section-bib}
 \end{document}
