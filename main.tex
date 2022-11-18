@@ -326,7 +326,22 @@ Base62は数字とアルファベットからなる62進数による数値の表
     \includegraphics[keepaspectratio, scale=0.3]
     {build/uber/leetcode.eps}
     \caption{答案}
-    \label{fig:twitter-lc}
+    \label{fig:uber-lc}
   \end{figure}    
+\end{section-bib}
+\begin{section-bib}{WhatsApp System Design}
+  \subsection{LeetCode}
+  \href{https://docs.google.com/drawings/d/1CaZsUs1I5e0AHrzG1GERoX6WQeUtd3BQ0XrVHziaP1g/edit}{答案}。
+  \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4393/}{解答}。
+  複数のWebSocket serverとそれらを束ねるWebSocket managerでユーザが使用中かを判定する。WebSocket server, managerの方式は以前の問題でも見た記憶がある。
+  Whatsappのメッセージは相手に受信すると削除されるらしい。
+  Cassandraの削除は処理性能を悪化させる\cite{cassandra-delete}。
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+    {build/whatsapp/leetcode.eps}
+    \caption{答案}
+    \label{fig:whatsapp-lc}
+  \end{figure}
 \end{section-bib}
 \end{document}

@@ -33,6 +33,11 @@ def NextJs(name: str) -> Node:
     return _create_node(name, "nextjs.svg")
 
 
+def NodeJs(name: str) -> Node:
+    """NodeJs."""
+    return _create_node(name, "nodejs.svg")
+
+
 def Alb(name: str) -> Node:
     """Application Load Balancer."""
     return _create_node(name, "alb.svg")

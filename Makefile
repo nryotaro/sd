@@ -8,6 +8,7 @@ main.pdf: build/airbnb/leetcode.eps \
           build/notification/leetcode.eps \
           build/twitter/leetcode.eps \
           build/uber/leetcode.eps \
+          build/whatsapp/leetcode.eps \
           main.bib \
           main.tex
 	latexmk -gg -pdflua main.tex
@@ -41,6 +42,9 @@ build/twitter/leetcode.eps: systems/venv/bin/activate systems/systems/twitter/le
 
 build/uber/leetcode.eps: systems/venv/bin/activate systems/systems/uber/leetcode.py
 	$(call draw_diagram,uber/leetcode)
+
+build/whatsapp/leetcode.eps: systems/venv/bin/activate systems/systems/whatsapp/leetcode.py
+	$(call draw_diagram,whatsapp/leetcode)
 
 systems/venv/bin/activate:
 	python -m venv systems/venv
