@@ -120,6 +120,15 @@ pdflang=ja-JP]{hyperref}
   \item リクエストの上限を制御するためのアルゴリズムをいくつか挙げ、その特徴をのべよ。
   \end{exercise}
 \end{section-bib}
+\begin{section-bib}{Web RTC}
+  Web RTCはリアルタイム通信の標準規格である\cite{webrtc}。
+  NATの後方にいるピアと接続するには、NATをバイパスしなければならない。
+  Interactive Connectivity Establishment(ICE)は、直接接続できないピア間の通信を確立するためのフレームワークであり、STUN(Session Traversal Utilities for NAT)やTURN(Traversal Using Relays around NAT)プロトコルを提供するサーバを立て、ピアを接続する\cite{mdn-webrtc}。
+  STUNサーバーは、ピアとの直接接続を妨害するルータの制限を特定する。
+  例えば、ルータの制限がSymmetric NATであば、ルーターは過去に接続したことのあるピアからの接続しか受け入れない。
+  この場合、ピアはTURNサーバにパケットを送信し、TURNサーバがパケットを相手に送信する。
+  TURNサーバの負荷が大きいため、STUNサーバが他の通信手段を見つけたら、TURNはもちいられない。
+\end{section-bib}
 \part{Case Studies}
 \begin{section-bib}{Google Maps}
   \subsection{LeetCode}
@@ -278,7 +287,7 @@ pdflang=ja-JP]{hyperref}
   \end{figure}
 \end{section-bib}
 \begin{section-bib}{Notification Service System Design}
-  \subsubsection{LeetCode}
+  \subsection{LeetCode}
   \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4389/}{模範回答}。
   送信先のユーザを登録するなどの通知用の外部サービスへの変更を適用する機能がない。
   \subsubsection{答案}
@@ -342,6 +351,18 @@ Base62は数字とアルファベットからなる62進数による数値の表
     {build/whatsapp/leetcode.eps}
     \caption{答案}
     \label{fig:whatsapp-lc}
+  \end{figure}
+\end{section-bib}
+\begin{section-bib}{Zoom System Design}
+  \href{https://docs.google.com/drawings/d/1A7J7ts0KVsf5UxgRo8Geuezmy9dpJSeCJEHUTaqzB88/edit}{答案}。
+  \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4394/}{解答}。
+ トランスコードは、デジタル映像をアナログ信号にデコードしないでデジタル信号のまま再エンコードすることをさす\cite{transcode}。
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio, scale=0.3]
+    {build/zoom.eps}
+    \caption{答案}
+    \label{fig:zoom}
   \end{figure}
 \end{section-bib}
 \end{document}
