@@ -19,7 +19,6 @@ pdflang=ja-JP]{hyperref}
 \end{section-bib}
 % 
 \begin{section-bib}{モノリスではなくマイクロサービスで設計する}
-  % モノリスとマイクロサービスの比較を書く。
   課題はモノリスで設計するには複雑すぎるので、マイクロサービスの設計を提案する\cite{lc-aa}。
   \subsection{設問}
   \begin{exercise}
@@ -129,6 +128,10 @@ pdflang=ja-JP]{hyperref}
   この場合、ピアはTURNサーバにパケットを送信し、TURNサーバがパケットを相手に送信する。
   TURNサーバの負荷が大きいため、STUNサーバが他の通信手段を見つけたら、TURNはもちいられない。
 \end{section-bib}
+\begin{section-bib}{Back of envelope}
+  Back of envelopeに使う要素を覚えておきたい。
+  1日なので$24*60*60=86400$秒であるからおよそ$10^5$とみなす。
+\end{section-bib}
 \part{Case Studies}
 \begin{section-bib}{Google Maps}
   \subsection{LeetCode}
@@ -166,6 +169,18 @@ pdflang=ja-JP]{hyperref}
     \caption{Googlemapsの答案}
     \label{fig:lc-googlemaps}
   \end{figure}
+\end{section-bib}
+\begin{section-bib}{Proximity Service}
+地理情報に高速にアクセスする必要がある。
+データの次元数がインデックスを使ったアクセスを高速化できる。
+RDBMSのインデックスであるGeoHashは、地球を4分割し、4つに00, 01, 11, 10とコードを割り当てる。
+さらに00の地域を4分割した地域に分割前の地域のコードをプレフィックスにして0000, 0001, 0010, 0011と再帰的に割り当てる。
+この場合、プレフィックスが同じコードの地域は近隣であるが、逆は成り立たない\cite{sdi2}。
+
+QuadtreeはGeoHashと同じく再帰的にデータの4分割を繰り返す\cite{quadtree}。
+例えばお店の数などの条件をノードが満たさなければ、ノードを最大4つの子ノードまで分岐させる。
+
+S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線を応用し、近い地域には距離の近い一次元のインデックスを割り当てる。
 \end{section-bib}
 \begin{section-bib}{Amazon System Design}
   \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
