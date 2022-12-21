@@ -55,6 +55,8 @@ pdflang=ja-JP]{hyperref}
   このとき、サーバーはクライアウントのタイムアウトを検知できない\cite{sdi}。
   サーバーからの通知が必要でクライアントからの通知がいらなければ、WebSocketではなくEvent Sourceを使えるか検討するとよいかもしれない。
   2022年8月におけるTwitterのタイムラインには、Event Sourceが使われている。
+
+  WebSocketはステートフルであるため、WebSocketサーバーを水平スケールする場合、ドレインするサーバーのコネクションを移し、新たなコネクションが追加されないようにしなければならない\cite{sdi2}。
   \subsection{設問}
   \begin{exercise}
   \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
@@ -64,7 +66,11 @@ pdflang=ja-JP]{hyperref}
 \begin{section-bib}{Pub/Sub}
   \subsection{Redis}
   RedisにはPub/Subの機能もある\cite{redis-pubsub}。
-  ドキュメントを読む限り、すべてのSubscriberにメッセージをブロードキャストし、Ackによる再処理はできないよう。
+  数GBのメモリがあれば、数百万のチャネルを作れる\cite{sdi2}。
+  ドキュメントを読む限り、すべてのSubscriberにメッセージをブロードキャストし、Ackによる再処理はできない。
+
+  Expireコマンドを使えばエントリーにTTLを設定できる\cite{redis-expire}。
+
 \end{section-bib}
 \begin{section-bib}{CQRS}
   CQRSはデータをコマンドとクエリの両方のモデルで永続化する\cite{microsoft-cqrs}。
@@ -181,6 +187,21 @@ QuadtreeはGeoHashと同じく再帰的にデータの4分割を繰り返す\cit
 例えばお店の数などの条件をノードが満たさなければ、ノードを最大4つの子ノードまで分岐させる。
 
 S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線を応用し、近い地域には距離の近い一次元のインデックスを割り当てる。
+
+今回のシステムでは地理情報のデータサイズが小さいので、アプリケーションレイヤーにロジックが必要になるシャーディングよりも、リードレプリカでスケールするほうが望ましい。シャーディングは管理が複雑なので、リードレプリカで十分であれば、そちらのほうが望ましい。
+\end{section-bib}
+\begin{section-bib}{Nearby Friends}
+  Redisのpubsubの代わりにErlangを使うことがすすめられている。
+  \subsection{Back of envelope}
+  \begin{itemize}
+  \item ユーザ総数は10億人
+  \item 同時アクセスユーザ数はユーザ総数の10\%である1億人いる。
+  \item ユーザーは平均して400人の友人がいる。
+  \item 各ユーザーは平均100人の友達の位置を情報を購読している。
+  \item 位置を通知するRedisのチャンネルを1人が購読するごとに20バイトのメモリが必要になる。
+  \item 30秒ごとにユーザを位置情報をサーバーに送る。
+  \item ギガバイトクラスのネットワークにある1台のRedisサーバーは秒間10万件のイベントをPushできるとする。これは保守的な見積りである。
+  \end{itemize}
 \end{section-bib}
 \begin{section-bib}{Amazon System Design}
   \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
