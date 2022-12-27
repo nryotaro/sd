@@ -1,6 +1,9 @@
 .PHONY: clean
 
-main.pdf: build/airbnb/leetcode.eps \
+main.pdf: main.bib \
+          main.tex \
+	  googlemaps.tex \
+	  build/airbnb/leetcode.eps \
           build/amazon/leetcode.eps \
           build/googlemaps/leetcode.eps \
           build/facebook/leetcode.eps \
@@ -10,8 +13,7 @@ main.pdf: build/airbnb/leetcode.eps \
           build/uber/leetcode.eps \
           build/whatsapp/leetcode.eps \
           build/zoom.eps \
-          main.bib \
-          main.tex
+          build/googlemaps.eps
 	latexmk -gg -pdflua main.tex
 
 clean:
@@ -48,6 +50,8 @@ build/whatsapp/leetcode.eps: systems/venv/bin/activate systems/systems/whatsapp/
 	$(call draw_diagram,whatsapp/leetcode)
 build/zoom.eps: systems/venv/bin/activate systems/systems/zoom.py
 	$(call draw_diagram,zoom)
+build/googlemaps.eps: systems/venv/bin/activate systems/systems/googlemaps.py
+	$(call draw_diagram,googlemaps)
 
 systems/venv/bin/activate:
 	python -m venv systems/venv

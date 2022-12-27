@@ -1,4 +1,4 @@
-"""Zoom.."""
+"""Zoom."""
 import sys
 from hornet.digraph import Digraph, Cluster
 from systems.nodes import (

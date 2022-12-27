@@ -93,6 +93,16 @@ def Cassandra(name: str) -> Node:
     return _create_node(name, "cassandra.svg")
 
 
+def Mobile(name: str) -> Node:
+    """Mobile."""
+    return _create_node(name, "mobile.svg")
+
+
+def FastAPI(name: str) -> Node:
+    """Fast API."""
+    return _create_node(name, "fastapi.svg")
+
+
 def Elasticsearch(name: str) -> Node:
     """Elasticsearch."""
     return _create_node(name, "elasticsearch.svg")
