@@ -167,6 +167,38 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \item ギガバイトクラスのネットワークにある1台のRedisサーバーは秒間10万件のイベントをPushできるとする。これは保守的な見積りである。
   \end{itemize}
 \end{section-bib}
+\begin{section-bib}{Distributed Message Queue}
+  \subsection{要件}
+  \begin{itemize}
+  \item キューに格納できるメッセージサイズの上限はいくつか
+  \item メッセージを再取得できるか
+  \item 取り出せるメッセージの順序はFIFOか
+  \item キューにあるメッセージの保存期間の長さは何か。
+  \item メッセージの重複の性質は、exactly once, at-least once, at-most onceなどのいずれか。
+  \item バイナリデータをメッセージで送れるか
+  \end{itemize}
+  キューに格納できるメッセージの量を増やすためにトピックをpartitionに分割し、複数のbrokerが個別のparititonのメッセージを配信する。
+  SPOFを避けるために複数のbrokerにpartitionを複製する。複製されたpartitionには、leaderとfollowerの関係がある。
+  Write Ahead Logでpartitonのメッセージを記録する。Write Ahead Logは追記とランダム読み込みのみ可能なファイルである\cite{sdi2}。
+  partitionのWrite Ahead Logをセグメントに分割する。
+  末尾のセグメントは読み込みと追記を、それ以外のセグメントは読み込みのみを可能とする。
+  
+  Consumerがメッセージをどこまで取得したかを記録しておく必要がある。
+  BrokerがConsumerの状態を保存する\cite{sdi2}こともあれば、KafkaのようにConsumerが自分の状態を保存する\cite{Kreps2011KafkaA}こともある。
+  Zookeeperやetcなどによるリーダー選出アルゴリズムでBrokerの中からリーダーを決め、Broker全体を管理させる。
+  リーダーは、brokerを追加、削除するときに、paritionを再配置する。
+  
+  Producerは、leader paritionにメッセージを送信する。
+  Consumerはどうやってメッセージが保存されているパーティションを特定するのか。
+
+  Consumerグループごとに一台の調整役のBrokerがいて、このBrokerがComsumerにparitionを割りあてる。
+  Consumerは調整役をグループ名から特定できる。
+  Consumerがグループへの参加を調整役のにリクエストすると、調整役は既存のConsumerを含めてConsumerにparitionを割り当てなおす。
+
+  at-most onceの場合、ProducerはBrokerからのACKを待たず、Consumerはメッセージを処理する前にcommitする。
+  at-least onceの場合、ProducerはBrokerからのACKが返るまでメッセージを送り、Consumerはメッセージの処理の終了後にcommitする。
+  
+\end{section-bib}
 \begin{section-bib}{Amazon System Design}
   \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
   解答\cite{lc-amazon}の問題点と長所をいれて改修する。
@@ -298,7 +330,7 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
     \caption{Notification Sevice System Designの答案}
     \label{fig:notification-lc}
   \end{figure}  
-\begin{section-bib}{Design A URL SHORTER}
+\begin{section-bib}{Design a URL Shorter}
   \subsection{概要}
   LeetCodeとCracking the System Design Interview\cite{sdi}の解説における要所は、短いURLを重複なく発行するアルゴリズムにある。
   \subsection{LeetCode}
