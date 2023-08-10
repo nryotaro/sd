@@ -14,12 +14,12 @@ main.pdf: main.bib \
           build/whatsapp/leetcode.eps \
           build/zoom.eps \
           build/googlemaps.eps
-	latexmk -gg -pdflua main.tex
+	latexmk -pdflua main.tex
 
 clean:
 	rm -rf build
 	latexmk -C
-	rm -f *.bbl *.run.xml *~
+	rm -f *.run.xml *~
 	rm -rf systems/venv
 
 build/airbnb/leetcode.eps: systems/venv/bin/activate systems/systems/airbnb/leetcode.py
