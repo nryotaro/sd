@@ -1,20 +1,29 @@
-\documentclass{ltjsbook}
-% \usepackage{fancyhdr}
+\documentclass[book]{jlreq}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
 pdftitle={Cracking the System Design Interview},
 pdfauthor={nryotaro},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
+\usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{main}
+\NewPageStyle{doge}{
+  nombre_position=bottom-right,
+  running_head_position=top-right,
+  mark_format={_chapter={\thechapter 章 #1},_section={\thesection #1}},
+  odd_running_head=_chapter,
+  even_running_head=_section
+}
+\pagestyle{doge}
 \addbibresource{main.bib}
+% Prevent the URLs the in bibliography section from overflow.
 % https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
 % \setcounter{biburlnumpenalty}{100}
 % \setcounter{biburlucpenalty}{100}
 \setcounter{biburllcpenalty}{100}
 \begin{document}
-\title{Cracking the System Design Interview}
-\author{Rancedcxii}
+\title{システム設計}
+\author{rancedcxii}
 \date{\today}
 \maketitle
 \tableofcontents
@@ -32,7 +41,9 @@ pdflang=ja-JP]{hyperref}
   \end{exercise}
   \subsection{解説}
   \subsubsection*{\ref{exe:monolith-micro}}
-  たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。  
+  たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。
+  \newpage
+  doge
 \end{section-bib}
  
 \begin{section-bib}{非同期メッセージング}
@@ -154,7 +165,7 @@ pdflang=ja-JP]{hyperref}
   冗長化するときは、ロードバランサーから別のロードバランサーにハートビートを送る\cite{cs75}。
 \end{section-bib}
 \part{Case Studies}
-\chapter{temp} 
+\chapter{temp}
 \include{googlemaps}
 \begin{section-bib}{Proximity Service}
 地理情報に高速にアクセスする必要がある。
