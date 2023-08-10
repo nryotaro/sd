@@ -1,4 +1,5 @@
-\documentclass{jlreq}
+\documentclass{ltjsbook}
+% \usepackage{fancyhdr}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
 pdftitle={Cracking the System Design Interview},
 pdfauthor={nryotaro},
@@ -7,13 +8,18 @@ pdflang=ja-JP]{hyperref}
 \usepackage{graphicx}
 \usepackage{main}
 \addbibresource{main.bib}
+% https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
+% \setcounter{biburlnumpenalty}{100}
+% \setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
 \begin{document}
 \title{Cracking the System Design Interview}
-\author{nryotaro}
+\author{Rancedcxii}
 \date{\today}
 \maketitle
 \tableofcontents
 \part{基本}
+\chapter{offset}
 \begin{section-bib}{面接の流れ}
   システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
 \end{section-bib}
@@ -28,12 +34,12 @@ pdflang=ja-JP]{hyperref}
   \subsubsection*{\ref{exe:monolith-micro}}
   たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。  
 \end{section-bib}
-
+ 
 \begin{section-bib}{非同期メッセージング}
-  ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。
+  ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。 
   Producerでの失敗を伝えるために使えそう。
   また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
-  \subsection{Queue}
+  \subsection{Queue} 
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
   サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことができる\cite{lc-isc}。
@@ -138,7 +144,17 @@ pdflang=ja-JP]{hyperref}
   Back of envelopeに使う要素を覚えておきたい。
   1日なので$24*60*60=86400$秒であるからおよそ$10^5$とみなす\cite{sdi2}。
 \end{section-bib}
+
+\begin{section-bib}{ロードバランサ}
+  \subsection{DNSラウンドロビン}
+  DNSラウンドロビンは、DNSに複数のAレコードを登録することによるラウンドロビン形式の負荷分散である。
+  簡単だが、分散先のサーバーの活性や負荷状況に関係なく分散する欠点がある\cite{cs75}。
+  \subsection{冗長化}
+  ロードバランサも冗長化しなければ、ロードバランサ自体が単一点障害を生んでしまうおそれがある。
+  冗長化するときは、ロードバランサーから別のロードバランサーにハートビートを送る\cite{cs75}。
+\end{section-bib}
 \part{Case Studies}
+\chapter{temp} 
 \include{googlemaps}
 \begin{section-bib}{Proximity Service}
 地理情報に高速にアクセスする必要がある。
@@ -225,7 +241,7 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.20]
+    \includegraphics[keepaspectratio, scale=0.15]
     {build/facebook/leetcode.eps}
     \caption{Facebookの答案}
     \label{fig:lc-facebook}
