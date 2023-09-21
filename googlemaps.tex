@@ -1,4 +1,4 @@
-\begin{section-bib}{Google Maps}
+\begin{chapter-bib}{Google Maps}
   System Design Interview 2とLeetCodeのどちらの模範回答もユーザーの位置を表示する機能と目的地までの案内の機能を提供するサービスが分かれている\cite{sdi2,lc-googlemaps}。
   図\ref{fig:sdi2-googlemaps}のActive UsersやPersonalization DBなどの一部のDBについては、使うべきDBの種類が解説\cite{sdi2}に記載されてない。
   Cassandraの削除は遅い\cite{cassandra-delete}ので、Active Usersなど一時的なデータの格納には向かないと思われる。 
@@ -10,7 +10,7 @@
   \end{figure}
   全ユーザのモバイルアプリケーションを開発者の指定したタイミイングで一斉にアップグレードすることはできないので、後方互換性を守りにくい機能はモバイルアプリケーションではなくバックエンドに置かねばならない\cite{sdi2}。
   
-  \subsection{LeetCode}
+  \section{LeetCode}
   解答は、ユーザの位置を特定する機能とユーザに道案内を提示する機能に対して個別のアーキテクチャ図を提示する\cite{lc-googlemaps}。
   ユーザの位置情報からマップを更新する。
   Spark Streaming Serviceは、新しいストリーミングサービスに置き変わった\cite{spark-streaming}。
@@ -20,7 +20,7 @@
     Find distance and ETA while travelling between 2 points.
   \end{quote}
   
-  \subsubsection{User Location Information}
+  \subsection{User Location Information}
   \begin{description}[labelsep=10pt]
   \item[Websocket Handler] ゲートウェイの役割。スケールアウトする。
   \item[Websocket Manager] デバイスがどのWebsocket Handlerと通信しているかを記録する。
@@ -45,4 +45,4 @@
     \caption{Googlemapsの答案}
     \label{fig:lc-googlemaps}
   \end{figure}
-\end{section-bib}
+\end{chapter-bib}
