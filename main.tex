@@ -1,20 +1,20 @@
 \documentclass[book]{jlreq}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
-pdftitle={Cracking the System Design Interview},
-pdfauthor={nryotaro},
+pdftitle={システム設計面接対策書},
+pdfauthor={rancedcxII},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{main}
-\NewPageStyle{doge}{
+\NewPageStyle{system}{
   nombre_position=bottom-right,
   running_head_position=top-right,
   mark_format={_chapter={\thechapter 章 #1},_section={\thesection #1}},
   odd_running_head=_chapter,
   even_running_head=_section
 }
-\pagestyle{doge}
+\pagestyle{system}
 \addbibresource{main.bib}
 % Prevent the URLs the in bibliography section from overflow.
 % https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
@@ -23,34 +23,30 @@ pdflang=ja-JP]{hyperref}
 \setcounter{biburllcpenalty}{100}
 \begin{document}
 \title{システム設計}
-\author{rancedcxii}
+\author{rancedcxII}
 \date{\today}
 \maketitle
 \tableofcontents
 \part{基本}
-\chapter{offset}
-\begin{section-bib}{面接の流れ}
+\begin{chapter-bib}{面接}
+  \section{方針}
   システム全体のアーキテクチャを問われるときは、Propose a Design, Talk about trade-offs, Discuss design choices, Limitationsの4部構成で話す\cite{lc-high}。
-\end{section-bib}
-% 
-\begin{section-bib}{モノリスではなくマイクロサービスで設計する}
+  \section{マイクロサービス}
   課題はモノリスで設計するには複雑すぎるので、マイクロサービスの設計を提案する\cite{lc-aa}。
   \subsection{設問}
   \begin{exercise}
   \item モノリスと比べたときのマイクロサービスの利点と欠点をのべよ。\label{exe:monolith-micro}  
   \end{exercise}
   \subsection{解説}
-  \subsubsection*{\ref{exe:monolith-micro}}
+  \subsubsection{\ref{exe:monolith-micro}}
   たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。
-  \newpage
-  doge
-\end{section-bib}
+\end{chapter-bib}
  
-\begin{section-bib}{非同期メッセージング}
+\begin{chapter-bib}{非同期メッセージング}
   ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。 
   Producerでの失敗を伝えるために使えそう。
   また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
-  \subsection{Queue} 
+  \section{Queue} 
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
   サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことができる\cite{lc-isc}。
@@ -66,8 +62,9 @@ pdflang=ja-JP]{hyperref}
   キューでなくロードバランサでも負荷分散を実現できるので、キューの利点として負荷分散を先にあげるのはよくないだろうか。
   \subsubsection*{\ref{exe:queue-compare}}
   Kafka, RabbitMQ, ActiveMQがある\cite{lc-isc}。
-\end{section-bib}
-\begin{section-bib}{双方向通信}
+\end{chapter-bib}
+\begin{chapter-bib}{双方向通信}
+  \section{双方向通信}
   ロングポーリングは、タイムアウトまでの時間を長くし、サーバからの応答を待つ。
   このとき、サーバーはクライアウントのタイムアウトを検知できない\cite{sdi}。
   サーバーからの通知が必要でクライアントからの通知がいらなければ、WebSocketではなくEvent Sourceを使えるか検討するとよいかもしれない。
@@ -79,22 +76,22 @@ pdflang=ja-JP]{hyperref}
   \item ロングポーリングとWebSocketそれぞれの使いどころを述べよ。
   \item WebsocketとEvent Sourceの利点欠点を比較せよ。
   \end{exercise}
-\end{section-bib}
-\begin{section-bib}{Pub/Sub}
-  \subsection{Redis}
+\end{chapter-bib}
+\begin{chapter-bib}{Pub/Sub}
+  \section{Redis}
   RedisにはPub/Subの機能もある\cite{redis-pubsub}。
   数GBのメモリがあれば、数百万のチャネルを作れる\cite{sdi2}。
   ドキュメントを読む限り、すべてのSubscriberにメッセージをブロードキャストし、Ackによる再処理はできない。
 
   Expireコマンドを使えばエントリーにTTLを設定できる\cite{redis-expire}。
 
-\end{section-bib}
-\begin{section-bib}{CQRS}
+\end{chapter-bib}
+\begin{chapter-bib}{CQRS}
   CQRSはデータをコマンドとクエリの両方のモデルで永続化する\cite{microsoft-cqrs}。
   % CQRSでEvent Sourcingが必須なのは、コマンドの永続化層にデータを書き込むのとをクエリの永続化層への追加したデータの通知を、1つのトランザクションで行い整合性を保つ必要があるから\cite{j5ik2o-cqrs-event-sourcing}。
-\end{section-bib}
-\begin{section-bib}{キャッシュ}
-  \subsection{Consistent Hashing}
+\end{chapter-bib}
+\begin{chapter-bib}{キャッシュ}
+  \section{Consistent Hashing}
   キャッシュを複数のノードに分散して保存するとき、ハッシュ関数をキーに適用し、値が格納されたノードを特定できる。
   このとき、参加するノードが変われば、キャッシュされたデータを再配置しなければならない。
   コンシステントハッシュ法は、円環上のハッシュ値とノードを配置したとき、ハッシュ値から時計回りに出発し最初に出会うノードに値を格納する\cite{sdi}。
@@ -102,19 +99,20 @@ pdflang=ja-JP]{hyperref}
   ノードの数が少ないと、再配置した結果、ノードごとのデータ量が偏るおそれがある。
   ノードの数がおおいほど、偏りを防げるため、1つのノードに対応する複数の仮想的なノードを円環上に配置することで、偏りを抑止できる。
   
-  Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われる一方で、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
+  Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われるが、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
   \subsection{Cache Eviction}
   Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
   \subsection{設問}
   \begin{exercise}
   \item Redisを使うアプリケーションを構築し、Redisの基本的な機能に習熟せよ。
   \end{exercise}
-\end{section-bib}
-\begin{section-bib}{分散ファイルシステム}
+\end{chapter-bib}
+\begin{chapter-bib}{分散ファイルシステム}
   CDNを使えば、Amazon S3などの分散ファイルシステムに配置したデータを高速に配信できる\cite{lc-databases}。
-\end{section-bib}
+\end{chapter-bib}
 
-\begin{section-bib}{データベース}
+\begin{chapter-bib}{データベース}
+  \section{データベース}
   % NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
   ACIDのConsistency(一貫性)は、データに常に真でなければならない不変性があることである\cite{ddia}。
   属性が多いデータはドキュメント指向データベースが、クエリのパターンが少ないがデータ量が多いときは列指向データベースがよい\cite{lc-databases}。
@@ -123,26 +121,26 @@ pdflang=ja-JP]{hyperref}
   \begin{exercise}
   \item ACIDの各アルファベットが示す特性について説明せよ。
   \item Cassandraを使うアプリケーションを構築し、その基本的な機能に習熟せよ。
-  \end{exercise}  
-\end{section-bib}
-\begin{section-bib}{Rate Limiting}
-  \subsection{Leaky Bucket}
+  \end{exercise}
+\end{chapter-bib}
+\begin{chapter-bib}{Rate Limiting}
+  \section{Leaky Bucket}
   蓄えられる未処理のリクエスト数と一定時間に処理できるリスエスト数の2つパラメータでリクエストを制御する\cite{sdi}。
   蓄えられている未処理のリクエストから一定時間内の固定数のリクエストを処理する。
   蓄えられるリクエスト数を越えてリクエストが届く場合リクエストを破棄する。
   パラメタ数が少なくチューニングが簡単だが、蓄えられるリクエスト数が一杯になるまでは、一定時間に処理できる分量以上のリクエストを受けつけてしまう。
-  \subsection{Fixed Window}
+  \section{Fixed Window}
   一定時間のウィンドウ内に処理するリクエスト数の上限を決め、それを越えるリクエストを破棄する。
   2つのウィンドウをまたいだ時刻にリクエストが多く到着する場合、ウィンドウサイズを越えたリクエスト数がウィンドウサイズと同じ時間内に処理されるおそれがある。
-  \subsection{Sliding Window}
+  \section{Sliding Window}
   一定時間のウィンドウをスライドさせ、Fixed windowのウィンドウをまたいだ場合に上限以上のリクエストが処理される問題をふせぐ。
   Fixed Windowよりも制御に多く計算リソースが必要である。
   \subsection{設問}
   \begin{exercise}
   \item リクエストの上限を制御するためのアルゴリズムをいくつか挙げ、その特徴をのべよ。
   \end{exercise}
-\end{section-bib}
-\begin{section-bib}{Web RTC}
+\end{chapter-bib}
+\begin{chapter-bib}{Web RTC}
   Web RTCはリアルタイム通信の標準規格である\cite{webrtc}。
   NATの後方にいるピアと接続するには、NATをバイパスしなければならない。
   Interactive Connectivity Establishment(ICE)は、直接接続できないピア間の通信を確立するためのフレームワークであり、STUN(Session Traversal Utilities for NAT)やTURN(Traversal Using Relays around NAT)プロトコルを提供するサーバを立て、ピアを接続する\cite{mdn-webrtc}。
@@ -150,24 +148,24 @@ pdflang=ja-JP]{hyperref}
   例えば、ルータの制限がSymmetric NATであば、ルーターは過去に接続したことのあるピアからの接続しか受け入れない。
   この場合、ピアはTURNサーバにパケットを送信し、TURNサーバがパケットを相手に送信する。
   TURNサーバの負荷が大きいため、STUNサーバが他の通信手段を見つけたら、TURNはもちいられない。
-\end{section-bib}
-\begin{section-bib}{Back of envelope}
+\end{chapter-bib}
+\begin{chapter-bib}{Back of envelope}
   Back of envelopeに使う要素を覚えておきたい。
   1日なので$24*60*60=86400$秒であるからおよそ$10^5$とみなす\cite{sdi2}。
-\end{section-bib}
+\end{chapter-bib}
 
-\begin{section-bib}{ロードバランサ}
-  \subsection{DNSラウンドロビン}
+\begin{chapter-bib}{ロードバランサ}
+  \section{DNSラウンドロビン}
   DNSラウンドロビンは、DNSに複数のAレコードを登録することによるラウンドロビン形式の負荷分散である。
   簡単だが、分散先のサーバーの活性や負荷状況に関係なく分散する欠点がある\cite{cs75}。
-  \subsection{冗長化}
+  \section{冗長化}
   ロードバランサも冗長化しなければ、ロードバランサ自体が単一点障害を生んでしまうおそれがある。
   冗長化するときは、ロードバランサーから別のロードバランサーにハートビートを送る\cite{cs75}。
-\end{section-bib}
+\end{chapter-bib}
 \part{Case Studies}
 \chapter{temp}
 \include{googlemaps}
-\begin{section-bib}{Proximity Service}
+\begin{chapter-bib}{Proximity Service}
 地理情報に高速にアクセスする必要がある。
 データの次元数がインデックスを使ったアクセスを高速化できる。
 RDBMSのインデックスであるGeoHashは、地球を4分割し、4つに00, 01, 11, 10とコードを割り当てる。
@@ -180,10 +178,10 @@ QuadtreeはGeoHashと同じく再帰的にデータの4分割を繰り返す\cit
 S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線を応用し、近い地域には距離の近い一次元のインデックスを割り当てる。
 
 今回のシステムでは地理情報のデータサイズが小さいので、アプリケーションレイヤーにロジックが必要になるシャーディングよりも、リードレプリカでスケールするほうが望ましい。シャーディングは管理が複雑なので、リードレプリカで十分であれば、そちらのほうが望ましい。
-\end{section-bib}
-\begin{section-bib}{Nearby Friends}
+\end{chapter-bib}
+\begin{chapter-bib}{Nearby Friends}
   WebSocketの代わりにErlangをもちいてもいいとある\cite{sdi2}。
-  \subsection{Back of envelope}
+  \section{Back of envelope}
   \begin{itemize}
   \item ユーザ総数は10億人
   \item 同時アクセスユーザ数はユーザ総数の10\%である1億人いる。
@@ -193,9 +191,9 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \item 30秒ごとにユーザを位置情報をサーバーに送る。
   \item ギガバイトクラスのネットワークにある1台のRedisサーバーは秒間10万件のイベントをPushできるとする。これは保守的な見積りである。
   \end{itemize}
-\end{section-bib}
-\begin{section-bib}{Distributed Message Queue}
-  \subsection{要件}
+\end{chapter-bib}
+\begin{chapter-bib}{Distributed Message Queue}
+  \section{要件}
   \begin{itemize}
   \item キューに格納できるメッセージサイズの上限はいくつか
   \item メッセージを再取得できるか
@@ -224,9 +222,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
 
   at-most onceの場合、ProducerはBrokerからのACKを待たず、Consumerはメッセージを処理する前にcommitする。
   at-least onceの場合、ProducerはBrokerからのACKが返るまでメッセージを送り、Consumerはメッセージの処理の終了後にcommitする。
-  
-\end{section-bib}
-\begin{section-bib}{Amazon System Design}
+\end{chapter-bib}
+\begin{chapter-bib}{Amazon System Design}
   \href{https://docs.google.com/drawings/d/156NaHO0stF_xJBGtAUzkLmhU2eIz2ZYGaySqlPKHCLY/edit}{編集中}。
   解答\cite{lc-amazon}の問題点と長所をいれて改修する。
   データの更新情報のフローがない。
@@ -238,10 +235,10 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
     \caption{Amazonの答案}
     \label{fig:lc-amazon}
   \end{figure}
-\end{section-bib}
-\begin{section-bib}{Facebook System Design}
-  \subsection{LeetCode}
-  \subsubsection{答案}
+\end{chapter-bib}
+\begin{chapter-bib}{Facebook System Design}
+  \section{LeetCode}
+  \subsection{答案}
   \href{https://docs.google.com/drawings/d/1Xe7tRV1plpmUM1GEbcm1Rr-Sl4nuBaOe9AlLlUXsHQw/edit}{編集中}。
   タイムラインに表示すべきPostのユーザを管理するために必要な抽象データ構造は、ユーザIDからユーザIDの集合を要素とするハッシュテーブルであるため、タイムラインの表示にグラフDBはいらない。
   BFFを使うとオーケストレーターパターン\cite{microsoft-choreography}になってしまうのだろうか。
@@ -267,9 +264,9 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \item Kafkaのメッセージの順序は到着順か。
   \item Cassandraは集計関数があるか。たとえば、Likeの総数を誰がどのPostにLikeしたかを示すレコードから集計できるか。
   \end{exercise}
-\end{section-bib}
-\begin{section-bib}{Airbnb System Design}
-  \subsection{LeetCode}
+\end{chapter-bib}
+\begin{chapter-bib}{Airbnb System Design}
+  \section{LeetCode}
   文章ではなく動画で解説がなされてる\cite{lc-airbnb}。
   動画のある機能要件と非機能要件を列挙する。
   模範回答のアーキテクチャは他のLeetCodeの回答とおなじくKafkaを多用した非同期アーキテクチャだが、System Design Interviewはメッセージングサービスを使っていない\cite{sdi2}。
@@ -305,7 +302,7 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
       \end{itemize}
     \end{itemize}
   \end{itemize}
-  \subsubsection{答案}
+  \subsection{答案}
   \href{https://docs.google.com/drawings/d/1oregVo4fx3HTBSgF3dMn4DQ3X_REdrHiq2u5p3FegcQ/edit}{編集中}
   \begin{figure}[ht]
     \centering
@@ -314,7 +311,7 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
     \caption{Airbnbの答案}
     \label{fig:lc-airbnb}
   \end{figure}
-\end{section-bib}
+\end{chapter-bib}
 \section{Video Streaming Service System Design}
   \subsection{LeetCode}
   \subsubsection{模範回答}
@@ -357,8 +354,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
     \caption{Notification Sevice System Designの答案}
     \label{fig:notification-lc}
   \end{figure}  
-\begin{section-bib}{Design a URL Shorter}
-  \subsection{概要}
+\begin{chapter-bib}{Design a URL Shorter}
+  \section{概要}
   LeetCodeとCracking the System Design Interview\cite{sdi}の解説における要所は、短いURLを重複なく発行するアルゴリズムにある。
   \subsection{LeetCode}
   \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4390/}{問題文}。
@@ -370,9 +367,9 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
 Base62は数字とアルファベットからなる62進数による数値の表現である\cite{base62}。
 互いに素な定数$b$と$h$をつかった以下のrolling hash関数をつかえばハッシュ値を生成できる\cite{rollinghash}。
   \[ H = (c_1b^{m-1} + c_2 b^{m-2} + \dots + c_mb^0 ) mod h\]
-\end{section-bib}
-\begin{section-bib}{Twitter System Design}
-  \subsection{LeetCode}
+\end{chapter-bib}
+\begin{chapter-bib}{Twitter System Design}
+  \section{LeetCode}
   \href{https://docs.google.com/drawings/d/1SU6qTfwFEy_aSr-Ik-FPNRJ2zWeNa6SuyRc64uyhPuo/edit}{答案}。
   \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4391/}{模範回答}も\cite{ddia}もフォロワー数の多いユーザのツイートの配信と多くないユーザの配信処理を分けている。
   ユーザがタイムラインを参照する前に、タイムラインをキャッシュしておく。フォロー中のユーザがツイートしたら、フォローしているユーザの各タイムラインのキャッシュにツイートを追加する。ただし、ツイートしたユーザのフォロワー数が多いと追加する量が多くなるので、キャッシュには含めない。
@@ -384,7 +381,7 @@ Base62は数字とアルファベットからなる62進数による数値の表
     \caption{答案}
     \label{fig:twitter-lc}
   \end{figure}  
-\end{section-bib}
+\end{chapter-bib}
 
 \section{Uber System Design}
   \subsection{LeetCode}
@@ -397,8 +394,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
     \label{fig:uber-lc}
   \end{figure}    
 
-\begin{section-bib}{WhatsApp System Design}
-  \subsection{LeetCode}
+\begin{chapter-bib}{WhatsApp System Design}
+  \section{LeetCode}
   \href{https://docs.google.com/drawings/d/1CaZsUs1I5e0AHrzG1GERoX6WQeUtd3BQ0XrVHziaP1g/edit}{答案}。
   \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4393/}{解答}。
   複数のWebSocket serverとそれらを束ねるWebSocket managerでユーザが使用中かを判定する。WebSocket server, managerの方式は以前の問題でも見た記憶がある。
@@ -411,8 +408,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
     \caption{答案}
     \label{fig:whatsapp-lc}
   \end{figure}
-\end{section-bib}
-\begin{section-bib}{Zoom System Design}
+\end{chapter-bib}
+\begin{chapter-bib}{Zoom System Design}
   \href{https://docs.google.com/drawings/d/1A7J7ts0KVsf5UxgRo8Geuezmy9dpJSeCJEHUTaqzB88/edit}{答案}。
   \href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4394/}{解答}。
  トランスコードは、デジタル映像をアナログ信号にデコードしないでデジタル信号のまま再エンコードすることをさす\cite{transcode}。
@@ -423,5 +420,5 @@ Base62は数字とアルファベットからなる62進数による数値の表
     \caption{答案}
     \label{fig:zoom}
   \end{figure}
-\end{section-bib}
+\end{chapter-bib}
 \end{document}
