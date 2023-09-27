@@ -41,7 +41,13 @@ pdflang=ja-JP]{hyperref}
   \subsubsection{\ref{exe:monolith-micro}}
   たとえば、複数の技術を適材適所に使えるが、プロセス内の通信がネットワーク越しのAPI呼び出しになる分のレイテンシーが発生する\cite{lc-aa}。
 \end{chapter-bib}
- 
+\begin{chapter-bib}{指標}
+  \section{レイテンシ}
+  レイテンシはリクエストが処理を待っている時間である\cite{sdi}。
+  レイテンシの許容範囲内でスループットが最大であることが望ましい\cite{sasp}。
+  この目標は、スループットとレイテインシにあるトレードオフを示唆している。
+  たとえば、バッファリングをもちいると、スループットを改善できるが、バッファ内で待機するデータのレイテンシは悪化する。
+\end{chapter-bib}
 \begin{chapter-bib}{非同期メッセージング}
   ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。 
   Producerでの失敗を伝えるために使えそう。
