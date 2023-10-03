@@ -1,6 +1,6 @@
 \documentclass[book]{jlreq}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
-pdftitle={システム設計面接対策書},
+pdftitle={システム設計面接対策},
 pdfauthor={rancedcxII},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
@@ -108,9 +108,8 @@ pdflang=ja-JP]{hyperref}
   
   Consistent Hasingは、CDNのようなインターネット規模のキャッシュシステムで使われるが、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
   \subsection{Varnish}
-  ウェブアクセラレータは、リバースプロキシやロードバランサによってウェブサイトを高速化する。
-    
-  Varnishはウェブアクセラレータである。
+  ウェブアクセラレータはリバースプロキシやロードバランサの仕組みでウェブサイトを高速化するミドルウェアであり、VarnishはリバースプロキシとしてHTTPレスポンスをキャッシュする\cite{varnish,webaccel}。
+  VarnishでプライベートなCDNを構築するときも使われる\cite{varnish-private-cdn}。
   \section{Cache Eviction}
   Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
 \end{chapter-bib}
