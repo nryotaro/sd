@@ -97,7 +97,8 @@ pdflang=ja-JP]{hyperref}
   % CQRSでEvent Sourcingが必須なのは、コマンドの永続化層にデータを書き込むのとをクエリの永続化層への追加したデータの通知を、1つのトランザクションで行い整合性を保つ必要があるから\cite{j5ik2o-cqrs-event-sourcing}。
 \end{chapter-bib}
 \begin{chapter-bib}{キャッシュ}
-  \section{Consistent Hashing}
+  \section{CDN}
+  \subsection{Consistent Hashing}
   キャッシュを複数のノードに分散して保存するとき、ハッシュ関数をキーに適用し、値が格納されたノードを特定できる。
   このとき、参加するノードが変われば、キャッシュされたデータを再配置しなければならない。
   コンシステントハッシュ法は、円環上のハッシュ値とノードを配置したとき、ハッシュ値から時計回りに出発し最初に出会うノードに値を格納する\cite{sdi}。
@@ -105,13 +106,13 @@ pdflang=ja-JP]{hyperref}
   ノードの数が少ないと、再配置した結果、ノードごとのデータ量が偏るおそれがある。
   ノードの数がおおいほど、偏りを防げるため、1つのノードに対応する複数の仮想的なノードを円環上に配置することで、偏りを抑止できる。
   
-  Consistent Hasingは、CDNのようなインタネット規模のキャッシュシステムで使われるが、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
-  \subsection{Cache Eviction}
+  Consistent Hasingは、CDNのようなインターネット規模のキャッシュシステムで使われるが、データベースのパーティショニングではうまくいかない\cite{DBLP:journals/corr/LampingV14}。
+  \subsection{Varnish}
+  ウェブアクセラレータは、リバースプロキシやロードバランサによってウェブサイトを高速化する。
+    
+  Varnishはウェブアクセラレータである。
+  \section{Cache Eviction}
   Cache evictionの方式にはTTL、FIFO, LFU, LRU, LFRUなどがある\cite{lc-cache}。
-  \subsection{設問}
-  \begin{exercise}
-  \item Redisを使うアプリケーションを構築し、Redisの基本的な機能に習熟せよ。
-  \end{exercise}
 \end{chapter-bib}
 \begin{chapter-bib}{分散ファイルシステム}
   CDNを使えば、Amazon S3などの分散ファイルシステムに配置したデータを高速に配信できる\cite{lc-databases}。
