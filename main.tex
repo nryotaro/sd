@@ -1,9 +1,10 @@
 \documentclass[book]{jlreq}
 \usepackage[bookmarks=true,bookmarksnumbered=true,
 pdftitle={システム設計面接対策},
-pdfauthor={rancedcxII},
+pdfauthor={中村 遼太郎},
 pdfkeywords={System Design; Interview},
 pdflang=ja-JP]{hyperref}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{main}
@@ -21,9 +22,10 @@ pdflang=ja-JP]{hyperref}
 % \setcounter{biburlnumpenalty}{100}
 % \setcounter{biburlucpenalty}{100}
 \setcounter{biburllcpenalty}{100}
+
 \begin{document}
 \title{システム設計}
-\author{rancedcxII}
+\author{中村 遼太郎}
 \date{\today}
 \maketitle
 \tableofcontents
@@ -243,8 +245,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   非同期結果整合性でよくとりこぼしがないほうがいいところはkafkaにしよう。
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.25]
-    {build/amazon/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/amazon/leetcode.png}
     \caption{Amazonの答案}
     \label{fig:lc-amazon}
   \end{figure}
@@ -262,8 +264,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.15]
-    {build/facebook/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/facebook/leetcode.png}
     \caption{Facebookの答案}
     \label{fig:lc-facebook}
   \end{figure}
@@ -319,8 +321,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \href{https://docs.google.com/drawings/d/1oregVo4fx3HTBSgF3dMn4DQ3X_REdrHiq2u5p3FegcQ/edit}{編集中}
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/airbnb/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/airbnb/leetcode.png}
     \caption{Airbnbの答案}
     \label{fig:lc-airbnb}
   \end{figure}
@@ -349,8 +351,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \href{https://docs.google.com/drawings/d/1GL0j7JJm0ip7DnNsdWOHBbfoHmz5U1LwwcTsbRD7IZ4/edit}{答案}。  
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/netflix/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/netflix/leetcode.png}
     \caption{答案}
     \label{fig:netflix-lc}
   \end{figure}
@@ -362,8 +364,8 @@ S2Geometry\cite{s2geometry}は空間充填曲線であるヒルベルト曲線�
   \subsubsection{答案}
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/notification/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/notification/leetcode.png}
     \caption{Notification Sevice System Designの答案}
     \label{fig:notification-lc}
   \end{figure}  
@@ -389,8 +391,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
   タイムラインのリクエスト時に、フォロワー数の多いユーザのツイートを取得する。
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/twitter/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/twitter/leetcode.png}
     \caption{答案}
     \label{fig:twitter-lc}
   \end{figure}  
@@ -401,8 +403,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
   \href{https://docs.google.com/drawings/d/17wu9iCxfs3y7cy0ju6e3muZfvcxftr6B_zcXmRW_7qU/edit}{答案}。\href{https://leetcode.com/explore/learn/card/system-design/690/system-design-case-studies/4392/}{解答}。ドライバーと客が別のアプリケーションを使うことが前提。現在のタクシーの位置だけでなく、監査のためにこれまでの移動も記録したい。
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/uber/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/uber/leetcode.png}
     \caption{答案}
     \label{fig:uber-lc}
   \end{figure}    
@@ -416,8 +418,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
   Cassandraの削除は処理性能を悪化させる\cite{cassandra-delete}。
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/whatsapp/leetcode.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/whatsapp/leetcode.png}
     \caption{答案}
     \label{fig:whatsapp-lc}
   \end{figure}
@@ -428,8 +430,8 @@ Base62は数字とアルファベットからなる62進数による数値の表
  トランスコードは、デジタル映像をアナログ信号にデコードしないでデジタル信号のまま再エンコードすることをさす\cite{transcode}。
   \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio, scale=0.3]
-    {build/zoom.eps}
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {build/zoom.png}
     \caption{答案}
     \label{fig:zoom}
   \end{figure}

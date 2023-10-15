@@ -33,7 +33,7 @@ def draw(filepath: str):
         "Amazon",
         show=False,
         filename=filepath,
-        outformat="svg",
+        outformat="png",
         direction="TB",
         graph_attr={
             "newrank": "true",

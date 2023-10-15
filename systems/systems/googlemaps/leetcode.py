@@ -22,7 +22,7 @@ def draw(filepath: str):
         "GoogleMaps",
         show=False,
         filename=sys.argv[1],
-        outformat="svg",
+        outformat="png",
         direction="TB",
         graph_attr={"fontname": "Times New Roman"},
         edge_attr={"fontname": "Times New Roman"},
@@ -89,7 +89,6 @@ def draw(filepath: str):
                 graph_update = _analytics.Spark("Update")
                 map_update_queue << graph_update
                 with diagrams.Cluster("Database"):
-
                     diagrams.onprem.database.Cassandra("World")
                     graph_country_db = diagrams.onprem.database.Cassandra(
                         "Country"

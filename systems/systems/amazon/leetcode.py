@@ -23,7 +23,7 @@ def draw(filepath: str):
         "Amazon",
         show=False,
         filename=sys.argv[1],
-        outformat="svg",
+        outformat="png",
         direction="TB",
         graph_attr={"newrank": "true", "fontname": "Times New Roman"},
     ):
@@ -40,7 +40,6 @@ def draw(filepath: str):
             payment_services = Server("Payment Services")
             internet >> Edge(color="blue") >> payment_services
         with Cluster(" "):
-
             frontend = nextJs("frontend")
             bff = Spring("BFF")
             internet >> [bff, frontend]
