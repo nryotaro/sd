@@ -98,6 +98,25 @@ pdflang=ja-JP]{hyperref}
   CQRSはデータをコマンドとクエリの両方のモデルで永続化する\cite{microsoft-cqrs}。
   % CQRSでEvent Sourcingが必須なのは、コマンドの永続化層にデータを書き込むのとをクエリの永続化層への追加したデータの通知を、1つのトランザクションで行い整合性を保つ必要があるから\cite{j5ik2o-cqrs-event-sourcing}。
 \end{chapter-bib}
+\begin{chapter-bib}{データベース}
+  \section{データベース}
+  % NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
+  ACIDのConsistency（一貫性）は、データに常に真でなければならない不変性があることである\cite{ddia}。
+  
+  属性が多いデータはドキュメント指向データベースが、クエリのパターンが少ないがデータ量が多いときは列指向データベースがよい\cite{lc-databases}。
+  
+  ドキュメント指向データベースの例にMongoDBやCouchbaseが、列指向データベースの例にCassandraやHBaseがある。
+  \section{冗長化}
+  データベースのインスタンスをアプリケーションから直接参照させず、ロードバランサを参照することが推奨されている\cite{cs75}。
+  データベースのロードバランシングにもHAProxyが使える\cite{haproxyMySQL}。
+  
+  ロードバランサを使わずにMySQLでフェイルオーバーを実現したい場合、JDBCならば、JDBC URLに複数のホストを指定すればよい\cite{MySQLJDBC}。
+  \section{データ構造}
+  \subsection{SSTable}
+  SSTableは、Biggtableで使われるキーバリュー形式かつ追記型のデータ構造であり、かつキーと値のペアをキー順にセグメントに格納する\cite{ddia}。
+  各セグメントごとにキーはユニークである。
+  HBaseはSSTableを利用した列指向のデータベースである\cite{ddia}。
+\end{chapter-bib}
 \begin{chapter-bib}{キャッシュ}
   \section{CDN}
   \subsection{Consistent Hashing}
@@ -117,26 +136,6 @@ pdflang=ja-JP]{hyperref}
 \end{chapter-bib}
 \begin{chapter-bib}{分散ファイルシステム}
   CDNを使えば、Amazon S3などの分散ファイルシステムに配置したデータを高速に配信できる\cite{lc-databases}。
-\end{chapter-bib}
-
-\begin{chapter-bib}{データベース}
-  \section{データベース}
-  % NOSQLの代表例, document指向の使いどろこ、列指向のつかいどころを説明させる。
-  ACIDのConsistency（一貫性）は、データに常に真でなければならない不変性があることである\cite{ddia}。
-  
-  属性が多いデータはドキュメント指向データベースが、クエリのパターンが少ないがデータ量が多いときは列指向データベースがよい\cite{lc-databases}。
-  
-  ドキュメント指向データベースの例にMongoDBやCouchbaseが、列指向データベースの例にCassandraやHBaseがある。
-  \section{冗長化}
-  データベースのインスタンスをアプリケーションから直接参照させず、ロードバランサを参照することが推奨されている\cite{cs75}。
-  データベースのロードバランシングにもHAProxyが使える\cite{haproxyMySQL}。
-  
-  ロードバランサを使わずにMySQLでフェイルオーバーを実現したい場合、JDBCならば、JDBC URLに複数のホストを指定すればよい\cite{MySQLJDBC}。
-  \section{設問}
-  \begin{exercise}
-  \item ACIDの各アルファベットが示す特性について説明せよ。
-  \item Cassandraを使うアプリケーションを構築し、その基本的な機能に習熟せよ。
-  \end{exercise}
 \end{chapter-bib}
 \begin{chapter-bib}{Rate Limiting}
   \section{Leaky Bucket}
