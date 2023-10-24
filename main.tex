@@ -118,6 +118,11 @@ pdflang=ja-JP]{hyperref}
   HBaseはSSTableを利用した列指向のデータベースである\cite{ddia}。
 \end{chapter-bib}
 \begin{chapter-bib}{キャッシュ}
+  \section{キャッシュの書き込み}
+  キャッシュの書き込みパターンに、write-throughとwrite-backがある\cite{sasp}。
+  Write-throughは、キャッシュ、ストレージの順にデータを書き込み、ストレージに書き終えるまで、新たな書き込みをブロックする。
+  Write-backはキャッシュにデータを書き込んだ後、非同期にキャッシュからストレージにデータを書き込み、ストレージへの書き込みが完了する前にもデータを受理する。
+  
   \section{CDN}
   \subsection{Consistent Hashing}
   キャッシュを複数のノードに分散して保存するとき、ハッシュ関数をキーに適用し、値が格納されたノードを特定できる。
