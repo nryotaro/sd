@@ -50,9 +50,13 @@ pdflang=ja-JP]{hyperref}
   この目標は、スループットとレイテインシにあるトレードオフを示唆している。
   たとえば、バッファリングをもちいると、スループットを改善できるが、バッファ内で待機するデータのレイテンシは悪化する。
 \end{chapter-bib}
-\begin{chapter-bib}{非同期メッセージング}
+\begin{chapter-bib}{メッセージング}
+  \section{メッセージングサービス}
+  AMQP (Advanced Message Queuing Protocol) はブローカーを介したメッセージングプロトコルの標準的な仕様であり、RabbitMQによって実装されている\cite{rabbitmq}。
+  \section{メモ}
   ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。 
   Producerでの失敗を伝えるために使えそう。
+  
   また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
   \section{Queue} 
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
