@@ -52,16 +52,17 @@ pdflang=ja-JP]{hyperref}
 \end{chapter-bib}
 \begin{chapter-bib}{メッセージング}
   \section{メッセージングサービス}
-  AMQP (Advanced Message Queuing Protocol) はブローカーを介したメッセージングプロトコルの標準的な仕様であり、RabbitMQによって実装されている\cite{rabbitmq}。
-  \section{メモ}
-  ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。 
-  Producerでの失敗を伝えるために使えそう。
-  
-  また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
+  AMQP (Advanced Message Queuing Protocol) はブローカーを介したメッセージングプロトコルの標準的な仕様であり、RabbitMQによって実装されている\cite{rabbitmq-amqp}。
+
   \section{Queue} 
   複数のサービスへ同期的に通信するトランザクションは、通信を非同期にすれば応答の待機時間を短くできる。
   しかし、対向サービスに障害があれば非同期通信が失敗しても、トランザクションは別のサービスにリクエストを送る。
   サービスをキューを介して通信させることで、対向サービスと一時的につながらない間でも、キューにメッセージを蓄積でき、メッセージの消失を防ぐことができる\cite{lc-isc}。
+  
+  また、メッセージのスパイクが起きてもブローカーがバッファとなり、負荷を平準化できる。
+
+  ConsumerからProducerにキューを介してメッセージを送ることがある\cite{microsoft-messaging}。
+  RabbitMQの場合、メッセージのヘッダにある\texttt{reply-to}にキューを指定し、Producerが処理結果を指定されたキューに送ることで、ProducerとConsumer間で双方向の通信ができる\cite{rabbitmq-direct-reply-to}。
   \subsection{設問}
   \begin{exercise}
   \item 2つのサービスが直接ではなくキューを介して非同期通信する利点をのべよ。また、利点を満足するためのキューへの要件は何か。\label{exe:async-queue}
